@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Nav from '../components/Nav.svelte';
+	import MainHeader from "../components/MainHeader.svelte";
 
 	export let segment: string;
 </script>
@@ -12,10 +12,11 @@
 		padding: 2em;
 		margin: 0 auto;
 		box-sizing: border-box;
+		border: 1px solid greenyellow;
 	}
 </style>
 
-<Nav {segment}/>
+<MainHeader/>
 
 <main>
 	<slot></slot>

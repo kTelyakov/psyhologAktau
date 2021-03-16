@@ -1,3 +1,5 @@
+import markdown from '@jackfranklin/rollup-plugin-markdown'
+import glob from 'rollup-plugin-glob'
 import path from 'path';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
@@ -26,6 +28,8 @@ export default {
 		input: config.client.input().replace(/\.js$/, '.ts'),
 		output: config.client.output(),
 		plugins: [
+			markdown(),
+			glob(),
 			replace({
 				preventAssignment: true,
 				values:{
@@ -81,6 +85,8 @@ export default {
 		input: { server: config.server.input().server.replace(/\.js$/, ".ts") },
 		output: config.server.output(),
 		plugins: [
+			markdown(),
+			glob(),
 			replace({
 				preventAssignment: true,
 				values:{
