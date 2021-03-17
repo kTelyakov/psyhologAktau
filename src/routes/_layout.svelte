@@ -1,23 +1,38 @@
 <script lang="ts">
 	import MainHeader from "../components/MainHeader.svelte";
 
-	export let segment: string;
+	// export let segment: string;
 </script>
 
-<style>
-	main {
-		position: relative;
-		max-width: 56em;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
-		box-sizing: border-box;
-		border: 1px solid greenyellow;
+<style lang="scss">
+.container {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 1200px;
+}
+@media screen and (max-width: 1200px) {
+	.container {
+		background: red;
+		width: 1170px;
 	}
+}
+@media screen and (max-width: 992px) {
+	.container {
+		background: green;
+		width: 970px;
+	}
+}
+@media screen and (max-width: 768px) {
+	.container {
+		background: yellow;
+		width: 750px;
+	}
+}
+
 </style>
 
-<MainHeader/>
-
-<main>
-	<slot></slot>
-</main>
+<div class="container">
+	<MainHeader/>
+</div>
