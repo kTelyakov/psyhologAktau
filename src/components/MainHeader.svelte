@@ -52,6 +52,7 @@
     line-height: 26px;
     @include mobile {
       text-align: center;
+      margin-bottom: 20px;
     }
   }
 

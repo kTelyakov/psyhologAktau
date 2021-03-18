@@ -7,9 +7,13 @@ $purple: #4251ca;
   max-width: 1200px;
   @include mobile {
     max-width: 750px;
+    padding-right: 0px;
+    padding-left: 0px;
   }
   @include tablet {
     max-width: 970px;
+    padding-right: 0px;
+    padding-left: 0px;
   }
   @include desktop {
     max-width: 1170px;
