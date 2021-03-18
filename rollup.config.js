@@ -47,6 +47,9 @@ export default {
 					hydratable: true
 				}
 			}),
+			alias({
+				'@': __dirname + '/src',
+			}),
 			url({
 				sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
 				publicPath: '/client/'
@@ -107,7 +110,7 @@ export default {
 				emitCss: false
 			}),
 			alias({
-				root: __dirname + '/src',
+				'@': __dirname + '/src',
 				scss: __dirname + '/scss'
 			}),
 			url({
