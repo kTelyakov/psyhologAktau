@@ -3,42 +3,82 @@
   <!-- Логотип -->
   <div class="mainHeader__logo">
     <img src="/logo.png" alt="">
-    <h1 class="mainHeader__logoText">Психолог актау</h1>
   </div>
 
   <div class="mainHeader__centerBlock">
-    <h2 class="mainHeader__title">
-      Психологические консультации в г. Актау
-    </h2>
+    <h1 class="mainHeader__title">
+      Психолог в Актау
+    </h1>
     <p class="mainHeader__titleDescription">Центр практической психологии Ару-Ана</p>
   </div>
 
-  <div class="mainHeader__righBlock"></div>
+  <div class="mainHeader__rightBlock">
+    <a class="mainHeader__phone" href="tel:+77025253857">+77025253857</a>
+    <Btn class="mainHeader__btn">Горячая линия</Btn>
+  </div>
 
 </div>
 
 
 <style lang="scss">
+@import 'src/scss/mixins.scss';
 .mainHeader {
-  height: 130px;
+  min-height: 130px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: 1px solid red;
+  @include mobile {
+    flex-direction: column;
+  }
+  /* Центральный блок */
+  &__centerBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__title {
+    font-size: 25px;
+    color: #4251CA;
+    line-height: 28px;
+    @include mobile {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+  &__titleDescription {
+    font-size: 19px;
+    line-height: 26px;
+    @include mobile {
+      text-align: center;
+    }
+  }
+
   &__logo {
     display: flex;
     flex-direction: column;
   }
-  &__logoText {
-    font-size: 15px;
-    color: #c10e82;;
+  /* Правый блок */
+  &__rightBlock {
+    display: flex;
+    flex-direction: column;
+    @include mobile {
+      display: none;
+    }
   }
-  &__title {
-    font-size: 1.55rem;
-    color: #4251CA;
+  &__phone {
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
   }
-  &__titleDescription {
-    font-size: 19px;
+  &__btn {
+
   }
 
 }
 </style>
+<script>
+import Btn from './Btn.svelte'
+</script>

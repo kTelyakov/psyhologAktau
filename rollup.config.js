@@ -12,6 +12,7 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import alias from 'rollup-plugin-alias';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -38,7 +39,9 @@ export default {
 				},
 			}),
 			svelte({
-				preprocess: sveltePreprocess({ sourceMap: dev }),
+				preprocess: sveltePreprocess({
+					sourceMap: dev,
+				}),
 				compilerOptions: {
 					dev,
 					hydratable: true
@@ -102,6 +105,10 @@ export default {
 					hydratable: true
 				},
 				emitCss: false
+			}),
+			alias({
+				root: __dirname + '/src',
+				scss: __dirname + '/scss'
 			}),
 			url({
 				sourceDir: path.resolve(__dirname, 'src/node_modules/images'),

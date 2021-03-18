@@ -9,3 +9,6 @@ import MainHeader from '../components/MainHeader.svelte'
 </script>
 
 
+<style lang="scss" global>
+@import 'src/scss/index.scss';
+</style>
