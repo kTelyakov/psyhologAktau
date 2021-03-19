@@ -2,10 +2,12 @@
 	<title>Sapper project template</title>
 </svelte:head>
 
-<MainHeader />
+<FirstSection></FirstSection>
+
 
 <script>
 import MainHeader from '../components/MainHeader.svelte'
+import FirstSection from '../sections/mainPage/first.svelte'
 </script>
 
 

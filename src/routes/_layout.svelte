@@ -9,5 +9,6 @@
 <div class="container">
 	<MainHeader/>
 	<Nav></Nav>
+	<slot></slot>
 </div>
 
