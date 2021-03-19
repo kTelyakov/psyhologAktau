@@ -27,10 +27,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid red;
+  padding: 0px 10px;
   @include mobile {
     flex-direction: column;
   }
+
   /* Центральный блок */
   &__centerBlock {
     display: flex;

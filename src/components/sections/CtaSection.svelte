@@ -1,7 +1,9 @@
 <section class="firstBlock">
-  <h2 class="firstBlock__title">
-    Помощь в решении<br> психологических проблем<br> любой сложности
-  </h2>
+  <div class="firstBlock__title">
+    <Heading size="l">
+      Помощь в решении<br> психологических проблем<br> любой сложности
+    </Heading>
+  </div>
   <ul class="firstBlock__list">
     {#each list as item}
     <li class="firstBlock__listItem">
@@ -12,12 +14,13 @@
   </ul>
   <img class="firstBlock__photo" src="mom.png" alt="Карайчикова Гульсара">
   <div class="firstBlock__btn">
-    <Btn>Бесплатная консультация психолога</Btn>
+    <Btn>Консультация психолога</Btn>
   </div>
 </section>
 
 <script>
-import Btn from '../../components/Btn.svelte'
+import Btn from '../Btn.svelte'
+import Heading from '../Heading.svelte'
 const list = [
   'Более 20 лет опыта',
   'Полная анонимность',
@@ -28,17 +31,15 @@ const list = [
 
 <style lang="scss">
 @import 'src/scss/colors.scss';
+@import '../../scss/mixins.scss';
 .firstBlock {
-  padding: 30px 30px 0px 30px;
+  padding: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   position: relative;
   &__title {
-    font-size: 35px;
-    line-height: 1;
-    color: $purple;
     margin-bottom: 20px;
   }
   &__list {
@@ -52,8 +53,8 @@ const list = [
     color: $purple;
     margin-bottom: 10px;
     & > img {
-      width: 36px;
-      height: 36px;
+      width: 30px;
+      height: 30px;
       margin-right: 5px;
     }
   }
@@ -62,6 +63,12 @@ const list = [
     right: 0;
     bottom: 0;
     max-width: 40%;
+    @include tablet {
+      display: none;
+    }
+    @include mobile {
+      display: none;
+    }
   }
 }
 </style>

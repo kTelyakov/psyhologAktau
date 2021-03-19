@@ -12,3 +12,10 @@
 	<slot></slot>
 </div>
 
+<style lang="scss">
+@import '../scss/index.scss';
+body {
+	background-color: #f9f9f9;
+}
+
+</style>

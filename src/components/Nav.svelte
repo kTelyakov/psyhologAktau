@@ -30,6 +30,7 @@ function hamburgerClickHandler () {
 .menu {
   height: 64px;
   background: $purple;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   position: relative;
@@ -62,6 +63,7 @@ function hamburgerClickHandler () {
       top: 100%;
       left: 0;
       border-top: 1px solid white;
+      z-index: 10;
     }
   }
   &__link {

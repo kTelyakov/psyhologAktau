@@ -1,16 +1,17 @@
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Психолог в Актау</title>
 </svelte:head>
 
-<FirstSection></FirstSection>
+<CtaSection></CtaSection>
+<ServicesSection></ServicesSection>
+<Separator></Separator>
+<BioSection></BioSection>
 
 
 <script>
-import MainHeader from '../components/MainHeader.svelte'
-import FirstSection from '../sections/mainPage/first.svelte'
+import CtaSection from '../components/sections/CtaSection.svelte'
+import ServicesSection from '../components/sections/ServicesSection.svelte'
+import Separator from '../components/Separator.svelte'
+import BioSection from '../components/sections/BioSections.svelte'
 </script>
 
-
-<style lang="scss" global>
-@import 'src/scss/index.scss';
-</style>
