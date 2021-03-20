@@ -13,10 +13,12 @@ function expandHandler () {
 </script>
 
 <div class="expand">
-  <div class="expand__header" on:click={expandHandler}>
+  <div class="expand__header {open ? '_open' : ''}" on:click={expandHandler}>
     <div class="expand__title">
       <span>{title}</span>
-      <img class="expand__arrow {open ? '_up' : ''}" src="arrow.svg" alt="">
+      <div class="expand__arrow {open ? '_up' : ''}">
+        <img src="arrow.svg" alt="">
+      </div>
     </div>
   </div>
 
@@ -37,6 +39,9 @@ function expandHandler () {
     cursor: pointer;
     background: white;
     z-index: 1;
+    &._open {
+      z-index: 3;
+    }
   }
   &__title {
     width: 100%;
@@ -45,16 +50,24 @@ function expandHandler () {
     align-items: center;
   }
   &__arrow {
-    width: 15px;
-    height: 15px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transform: rotate(90deg);
     transition: transform .3s;
     &._up {
       transform: rotate(-90deg);
     }
+    & > img {
+      width: 15px;
+      height: 15px;
+    }
   }
   &__content {
     border-radius: 6px;
+    background: white;
     display: none;
     padding: 10px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 16%), 0 1px 3px rgb(0 0 0 / 12%);
@@ -62,8 +75,8 @@ function expandHandler () {
     &._open {
       display: block;
       position: absolute;
-      top: 36px;
-      z-index: 0;
+      top: 95%;
+      z-index: 2;
     }
   }
 }
