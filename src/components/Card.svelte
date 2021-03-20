@@ -11,11 +11,16 @@ export let cardObj = {}
     </div>
     <div class="card__titleBlock">
       <div class="card__title">{ cardObj.title }</div>
-      <div class="card__description">{ cardObj.description }</div>
+      {#if cardObj.description}
+        <div class="card__description">{ cardObj.description }</div>
+      {/if}
+
     </div>
-    <div class="card__actions">
-      <Btn>{ cardObj.btnText }</Btn>
-    </div>
+    {#if cardObj.btnText}
+      <div class="card__actions">
+        <Btn>{ cardObj.btnText }</Btn>
+      </div>
+    {/if}
   </div>
 
 

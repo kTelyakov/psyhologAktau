@@ -6,6 +6,12 @@
 <ServicesSection></ServicesSection>
 <Separator></Separator>
 <BioSection></BioSection>
+<Separator></Separator>
+<TvSection></TvSection>
+<Separator></Separator>
+<Testimonials></Testimonials>
+<Separator></Separator>
+<FaqSection></FaqSection>
 
 
 <script>
@@ -13,5 +19,9 @@ import CtaSection from '../components/sections/CtaSection.svelte'
 import ServicesSection from '../components/sections/ServicesSection.svelte'
 import Separator from '../components/Separator.svelte'
 import BioSection from '../components/sections/BioSections.svelte'
+import TvSection from '../components/sections/TvSection.svelte'
+import Testimonials from '../components/sections/Testimonials.svelte'
+import FaqSection from '../components/sections/FaqSection.svelte'
+
 </script>
 
