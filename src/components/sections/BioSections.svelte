@@ -2,6 +2,7 @@
 import Card from '../Card.svelte'
 import CardWrapper from '../CardWrapper.svelte'
 import Heading from '../Heading.svelte'
+import Carousel from '../Carousel.svelte'
 
 const card = {
   imgUrl: 'psyholog.png',
@@ -9,6 +10,22 @@ const card = {
   description: 'Психолог',
   btnText: 'Записаться'
 }
+
+const diploms = [
+  { url: 'diploms/dip1.jpeg' },
+  { url: 'diploms/dip2.png' },
+  { url: 'diploms/dip3.png' },
+  { url: 'diploms/dip4.png' },
+  { url: 'diploms/dip5.png' },
+  { url: 'diploms/dip6.png' },
+  { url: 'diploms/dip7.jpeg' },
+  { url: 'diploms/dip8.jpeg' },
+  { url: 'diploms/dip9.jpeg' },
+  { url: 'diploms/dip10.jpeg' },
+  { url: 'diploms/dip11.jpeg' },
+  { url: 'diploms/dip12.jpeg' },
+  { url: 'diploms/dip13.jpeg' }
+]
 </script>
 
 <div class="bioSection">
@@ -62,6 +79,11 @@ const card = {
         </div>
       </CardWrapper>
   </div>
+  <Carousel>
+    {#each diploms as diplom}
+      <img src="{diplom.url}" alt="" class="bioSection__diplom">
+    {/each}
+  </Carousel>
 </div>
 
 <style lang="scss">
@@ -87,6 +109,10 @@ const card = {
   }
   &__textAreaTitle {
     font-weight: bold;
+  }
+  &__diplom {
+    object-fit: contain;
+    max-width: 30%;
   }
 }
 </style>
