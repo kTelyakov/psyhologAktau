@@ -9,7 +9,6 @@ const dispatch = createEventDispatcher()
 function expandHandler () {
   dispatch('toggle')
 }
-
 </script>
 
 <div class="expand">

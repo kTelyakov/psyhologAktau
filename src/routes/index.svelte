@@ -12,6 +12,8 @@
 <Testimonials></Testimonials>
 <Separator></Separator>
 <FaqSection></FaqSection>
+<Separator></Separator>
+<PhotoReports></PhotoReports>
 
 
 <script>
@@ -22,6 +24,7 @@ import BioSection from '../components/sections/BioSections.svelte'
 import TvSection from '../components/sections/TvSection.svelte'
 import Testimonials from '../components/sections/Testimonials.svelte'
 import FaqSection from '../components/sections/FaqSection.svelte'
+import PhotoReports from '../components/sections/PhotoReports.svelte'
 
 </script>
 

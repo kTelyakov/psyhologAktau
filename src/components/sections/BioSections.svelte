@@ -79,11 +79,13 @@ const diploms = [
         </div>
       </CardWrapper>
   </div>
-  <Carousel>
-    {#each diploms as diplom}
-      <img src="{diplom.url}" alt="" class="bioSection__diplom">
-    {/each}
-  </Carousel>
+  <div class="bioSection__certificates">
+    <Carousel>
+      {#each diploms as diplom}
+        <img src="{diplom.url}" alt="" class="bioSection__diplom">
+      {/each}
+    </Carousel>
+  </div>
 </div>
 
 <style lang="scss">
@@ -113,6 +115,9 @@ const diploms = [
   &__diplom {
     object-fit: contain;
     max-width: 30%;
+  }
+  &__certificates {
+    display: flex;
   }
 }
 </style>

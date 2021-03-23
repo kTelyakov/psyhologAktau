@@ -35,6 +35,7 @@ const expands = [
       '<hr>Главное - не паниковать. Я рекомендовала бы беременность сохранять. Через много лет Вы поймете, что поступили правильно. Не ждать что произойдет чудо. Чудо создавайте сами в своей жизни. Самой устроиться на работу. Решить, что делать дальше, собраться всем вместе- с Вашими родителями, с мужем, с его родителями. Если это невозможно сделать, то обращайтесь к психологу. Безвыходных ситуаций не бывает.'
   }
 ]
+
 </script>
 
 <div class="faqSection">
@@ -45,7 +46,11 @@ const expands = [
   </div>
   <div class="faqSection__content">
     {#each expands as {title, description}}
-      <Expand on:toggle={() => toggleExpand(title)} title="{title}" open="{activeExpand === title}">
+      <Expand
+        on:toggle={() => toggleExpand(title)}
+        title="{title}"
+        open="{activeExpand === title}"
+      >
         {@html description}
       </Expand>
     {/each}
@@ -55,7 +60,6 @@ const expands = [
 <style lang="scss">
 @import '../../scss/mixins.scss';
 .faqSection {
-  padding-bottom: 300px;
   &__title {
     width: 100%;
     text-align: center;
@@ -70,7 +74,6 @@ const expands = [
     @include mobile {
       grid-template-columns: 1fr;
     }
-
   }
 }
 </style>

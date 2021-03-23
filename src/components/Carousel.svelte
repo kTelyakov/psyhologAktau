@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  width: 100%;
+  width: auto;
   overflow-x: scroll;
   -moz-box-shadow:    inset 0 0 10px #000000;
   -webkit-box-shadow: inset 0 0 10px #000000;
