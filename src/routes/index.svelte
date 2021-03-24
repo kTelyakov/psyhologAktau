@@ -14,7 +14,8 @@
 <FaqSection></FaqSection>
 <Separator></Separator>
 <PhotoReports></PhotoReports>
-
+<Separator></Separator>
+<Contacts></Contacts>
 
 <script>
 import CtaSection from '../components/sections/CtaSection.svelte'
@@ -25,6 +26,7 @@ import TvSection from '../components/sections/TvSection.svelte'
 import Testimonials from '../components/sections/Testimonials.svelte'
 import FaqSection from '../components/sections/FaqSection.svelte'
 import PhotoReports from '../components/sections/PhotoReports.svelte'
+import Contacts from '../components/sections/Contacts.svelte'
 
 </script>
 
