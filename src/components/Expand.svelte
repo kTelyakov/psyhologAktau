@@ -3,7 +3,7 @@ import { createEventDispatcher } from 'svelte'
 import { onMount } from 'svelte'
 
 
-onMount(async () => {
+onMount(() => {
   if (document) {
     document.body.addEventListener('click', clickHandler)
   }
