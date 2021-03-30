@@ -1,5 +1,24 @@
 <script>
 import { createEventDispatcher } from 'svelte'
+import { onMount } from 'svelte'
+
+
+onMount(async () => {
+  if (document) {
+    document.body.addEventListener('click', clickHandler)
+  }
+})
+
+
+function clickHandler (event) {
+  if (
+    ![...event.target.classList].some(
+      item => item.includes('expand')
+    )
+  ) {
+    open = false
+  }
+}
 
 export let title = 'default'
 export let open = false
@@ -14,7 +33,7 @@ function expandHandler () {
 <div class="expand">
   <div class="expand__header {open ? '_open' : ''}" on:click={expandHandler}>
     <div class="expand__title">
-      <span>{title}</span>
+      <span class="expand__text">{title}</span>
       <div class="expand__arrow {open ? '_up' : ''}">
         <img src="arrow.svg" alt="">
       </div>
