@@ -1,17 +1,8 @@
 <script>
 import ModalLayout from './ModalLayout.svelte'
-import ClickOutside from 'ClickOutside'
-import { createEventDispatcher } from 'svelte'
 
-const dispatch = createEventDispatcher()
-
-function forwardEvent() {
-  console.log('forwardEvent ')
-  dispatch('hide')
-}
-
-function clickOut () {
-  console.log('clickOut clickOut')
+function closeModalHandler () {
+  show = false
 }
 
 export let show
@@ -20,9 +11,9 @@ export let autoplay
 </script>
 
 {#if show}
-  <ModalLayout>
+  <ModalLayout on:closeModal={closeModalHandler}>
     <div class="modalYoutube">
-      <iframe src="https://www.youtube.com/embed/${videoId}?rel=0&wmode=transparent&autoplay=${autoplay}&iv_load_policy=3" allowfullscreen frameborder="0"></iframe>
+      <iframe title="" src="https://www.youtube.com/embed/${videoId}?rel=0&wmode=transparent&autoplay=${autoplay}&iv_load_policy=3" allowfullscreen frameborder="0"></iframe>
     </div>
   </ModalLayout>
 {/if}

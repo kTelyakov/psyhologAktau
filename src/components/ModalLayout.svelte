@@ -1,4 +1,13 @@
-<div class="modalLayout">
+<script>
+import { createEventDispatcher } from 'svelte'
+const dispatch = createEventDispatcher()
+
+function clickHandler () {
+  dispatch('closeModal')
+}
+</script>
+
+<div class="modalLayout" on:click={clickHandler} >
   <slot></slot>
 </div>
 

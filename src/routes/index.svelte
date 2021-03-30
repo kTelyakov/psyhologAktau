@@ -4,9 +4,7 @@
 
 modal : { modal }
 <button on:click={ () => modal = !modal }>Toggle</button>
-<ModalYoutube show={modal} videoId="_bltb7YlBV8">
-	asdasd
-</ModalYoutube>
+<ModalYoutube bind:show={modal} videoId="_bltb7YlBV8"></ModalYoutube>
 
 <!--<CtaSection></CtaSection>-->
 <!--<ServicesSection></ServicesSection>-->
