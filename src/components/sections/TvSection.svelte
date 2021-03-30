@@ -1,25 +1,30 @@
 <script>
 import Heading from '../Heading.svelte'
-import Card from '../Card.svelte'
+import CardYoutube from '../CardYoutube.svelte'
 
 const tvItems = [
   {
+    youtubeId: '1qlAjCqdsZw',
     imgUrl: 'tvSection/tv1.png',
     title: 'Какой должна быть молодая жена?'
   },
   {
+    youtubeId: 'VhTEmjMnmfs',
     imgUrl: 'tvSection/tv2.png',
     title: 'Почему ранние браки рано распадаются?'
   },
   {
+    youtubeId: 'CS2_i3bJ4WA',
     imgUrl: 'tvSection/tv3.png',
     title: 'Что важнее для девушки - карьера или семья?'
   },
   {
+    youtubeId: 'oDuEmmJ-zNA',
     imgUrl: 'tvSection/tv4.png',
     title: 'Почему разводов становится больше?'
   },
   {
+    youtubeId: 'wfWPLx5r9U0',
     imgUrl: 'tvSection/tv5.png',
     title: 'Ранние браки - хорошо или плохо?'
   },
@@ -32,7 +37,7 @@ const tvItems = [
   </div>
   <div class="tvSection__content">
     {#each tvItems as item}
-      <Card cardObj="{item}"></Card>
+      <CardYoutube cardObj={item} youtubeId={item.youtubeId}></CardYoutube>
     {/each}
   </div>
 </div>

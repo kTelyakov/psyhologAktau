@@ -1,11 +1,19 @@
 <script>
+import { createEventDispatcher } from 'svelte'
 import Btn from './Btn.svelte'
 
+const dispatch = createEventDispatcher()
+
+function clickHandler () {
+  dispatch('click')
+}
+
 export let cardObj = {}
+export let youtubeCard = false
 </script>
 
 
-  <div class="card">
+  <div class="card {youtubeCard ? 'card--youtube' : ''}" on:click={clickHandler}>
     <div class="card__media">
       <img src="{cardObj.imgUrl}" alt="">
     </div>
@@ -31,6 +39,9 @@ export let cardObj = {}
 .card {
   border-radius: 6px;
   box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  &--youtube {
+    cursor: pointer;
+  }
   &__media {
     overflow: hidden;
     & > img {
