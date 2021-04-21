@@ -12,7 +12,7 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
-import alias from 'rollup-plugin-alias';
+import alias from '@rollup/plugin-alias';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -48,7 +48,11 @@ export default {
 				}
 			}),
 			alias({
-				'@': __dirname + '/src',
+				entries: [
+					{ find: 'components', replacement: './src/components/' },
+					{ find: 'sections', replacement: './src/sections/' },
+					{ find: 'styles', replacement: './src/scss/' },
+				]
 			}),
 			url({
 				sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
@@ -111,8 +115,11 @@ export default {
 				emitCss: false
 			}),
 			alias({
-				'@': __dirname + '/src',
-				scss: __dirname + '/scss'
+				entries: [
+					{ find: 'components', replacement: './src/components/' },
+					{ find: 'sections', replacement: './src/sections/' },
+					{ find: 'styles', replacement: './src/scss/' },
+				]
 			}),
 			url({
 				sourceDir: path.resolve(__dirname, 'src/node_modules/images'),

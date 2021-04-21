@@ -1,9 +1,15 @@
-<button class="btn {shadow ? '_shadow' : ''}">
+<button class="btn {shadow ? '_shadow' : ''}" on:click={dispatchClick}>
   <slot></slot>
 </button>
 
 <script>
 let shadow = false
+import { createEventDispatcher } from 'svelte'
+const dispatch = createEventDispatcher()
+
+function dispatchClick () {
+  dispatch('click')
+}
 </script>
 
 <style lang="scss">

@@ -18,7 +18,7 @@
 <Contacts></Contacts>
 
 <script>
-import CtaSection from '../components/sections/CtaSection.svelte'
+import CtaSection from 'components/sections/CtaSection.svelte'
 import ServicesSection from '../components/sections/ServicesSection.svelte'
 import Separator from '../components/Separator.svelte'
 import BioSection from '../components/sections/BioSections.svelte'
@@ -27,6 +27,5 @@ import Testimonials from '../components/sections/Testimonials.svelte'
 import FaqSection from '../components/sections/FaqSection.svelte'
 import PhotoReports from '../components/sections/PhotoReports.svelte'
 import Contacts from '../components/sections/Contacts.svelte'
-
 </script>
 

@@ -14,19 +14,24 @@
   </ul>
   <img class="firstBlock__photo" src="mom.png" alt="Карайчикова Гульсара">
   <div class="firstBlock__btn">
-    <Btn>Консультация психолога</Btn>
+    <Btn on:click={showModalForm}>Консультация психолога</Btn>
   </div>
 </section>
 
 <script>
 import Btn from '../Btn.svelte'
 import Heading from '../Heading.svelte'
+import LeadForm from '../LeadForm.svelte'
 const list = [
   'Более 20 лет опыта',
   'Полная анонимность',
   'Гарантия результата',
   'Помогли более 10 000 человек в СНГ'
 ]
+
+function showModalForm () {
+  alert(2)
+}
 </script>
 
 <style lang="scss">
