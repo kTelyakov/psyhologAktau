@@ -1,7 +1,7 @@
 <script>
-import CardWrapper from '../CardWrapper.svelte'
-import Heading from '../Heading.svelte'
-import Card from '../Card.svelte'
+import CardWrapper from 'components/CardWrapper.svelte'
+import Heading from 'components/Heading.svelte'
+import Card from 'components/Card.svelte'
 
 const services = [
   {
@@ -62,7 +62,7 @@ const services = [
 </CardWrapper>
 
 <style lang="scss">
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 .secondSection {
   &__title {
     text-align: center;

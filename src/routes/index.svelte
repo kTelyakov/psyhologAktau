@@ -18,14 +18,14 @@
 <Contacts></Contacts>
 
 <script>
-import CtaSection from 'components/sections/CtaSection.svelte'
-import ServicesSection from '../components/sections/ServicesSection.svelte'
-import Separator from '../components/Separator.svelte'
-import BioSection from '../components/sections/BioSections.svelte'
-import TvSection from '../components/sections/TvSection.svelte'
-import Testimonials from '../components/sections/Testimonials.svelte'
-import FaqSection from '../components/sections/FaqSection.svelte'
-import PhotoReports from '../components/sections/PhotoReports.svelte'
-import Contacts from '../components/sections/Contacts.svelte'
+import CtaSection from 'sections/CtaSection.svelte'
+import ServicesSection from 'sections/ServicesSection.svelte'
+import Separator from 'components/Separator.svelte'
+import BioSection from 'sections/BioSections.svelte'
+import TvSection from 'sections/TvSection.svelte'
+import Testimonials from 'sections/Testimonials.svelte'
+import FaqSection from 'sections/FaqSection.svelte'
+import PhotoReports from 'sections/PhotoReports.svelte'
+import Contacts from 'sections/Contacts.svelte'
 </script>
 

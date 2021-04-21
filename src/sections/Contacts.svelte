@@ -1,6 +1,6 @@
 <script>
-import CardWrapper from '../CardWrapper.svelte'
-import Heading from '../Heading.svelte'
+import CardWrapper from 'components/CardWrapper.svelte'
+import Heading from 'components/Heading.svelte'
 </script>
 
 <div class="contactsSection">
@@ -45,7 +45,7 @@ import Heading from '../Heading.svelte'
 
 
 <style lang="scss">
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 .contactsSection {
   &__title {
     margin-bottom: 20px;
@@ -89,5 +89,5 @@ import Heading from '../Heading.svelte'
       margin-right: 10px;
     }
   }
-}  
+}
 </style>

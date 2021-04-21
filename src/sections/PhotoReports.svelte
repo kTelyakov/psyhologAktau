@@ -1,5 +1,5 @@
 <script>
-import Heading from '../Heading.svelte'
+import Heading from 'components/Heading.svelte'
 
 const photos = [
   { url: 'photoReports/report1.jpeg' },
@@ -27,7 +27,7 @@ const photos = [
 </div>
 
 <style lang="scss">
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 .photoReports {
   &__title {
     width: 100%;

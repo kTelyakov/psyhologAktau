@@ -1,6 +1,6 @@
 <script>
-import Heading from '../Heading.svelte'
-import CardYoutube from '../CardYoutube.svelte'
+import Heading from 'components/Heading.svelte'
+import CardYoutube from 'components/CardYoutube.svelte'
 
 const testimonials = [
   {
@@ -81,7 +81,7 @@ const testimonials = [
 
 
 <style lang="scss">
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 .testimonials {
   &__title {
     width: 100%;

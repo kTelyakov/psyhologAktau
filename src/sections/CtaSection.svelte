@@ -19,9 +19,9 @@
 </section>
 
 <script>
-import Btn from '../Btn.svelte'
-import Heading from '../Heading.svelte'
-import LeadForm from '../LeadForm.svelte'
+import Btn from 'components/Btn.svelte'
+import Heading from 'components/Heading.svelte'
+import LeadForm from 'components/LeadForm.svelte'
 const list = [
   'Более 20 лет опыта',
   'Полная анонимность',
@@ -35,8 +35,8 @@ function showModalForm () {
 </script>
 
 <style lang="scss">
-@import 'src/scss/colors.scss';
-@import '../../scss/mixins.scss';
+@import '../scss/colors.scss';
+@import '../scss/mixins.scss';
 .firstBlock {
   padding: 30px;
   display: flex;

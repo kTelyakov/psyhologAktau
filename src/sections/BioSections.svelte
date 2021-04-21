@@ -1,8 +1,8 @@
 <script>
-import Card from '../Card.svelte'
-import CardWrapper from '../CardWrapper.svelte'
-import Heading from '../Heading.svelte'
-import Carousel from '../Carousel.svelte'
+import Card from 'components/Card.svelte'
+import CardWrapper from 'components/CardWrapper.svelte'
+import Heading from 'components/Heading.svelte'
+import Carousel from 'components/Carousel.svelte'
 
 const card = {
   imgUrl: 'psyholog.png',
@@ -89,7 +89,7 @@ const diploms = [
 </div>
 
 <style lang="scss">
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 .bioSection {
   &__header {
     width: 100%;

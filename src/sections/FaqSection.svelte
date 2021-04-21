@@ -1,6 +1,6 @@
 <script>
-import Heading from '../Heading.svelte'
-import Expand from '../Expand.svelte'
+import Heading from 'components/Heading.svelte'
+import Expand from 'components/Expand.svelte'
 
 let activeExpand = ''
 function toggleExpand (title) {
@@ -58,7 +58,7 @@ const expands = [
 </div>
 
 <style lang="scss">
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 .faqSection {
   &__title {
     width: 100%;

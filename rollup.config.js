@@ -49,7 +49,7 @@ export default {
 			}),
 			alias({
 				entries: [
-					{ find: 'components', replacement: './src/components/' },
+					{ find: 'components', replacement: './src/components' },
 					{ find: 'sections', replacement: './src/sections/' },
 					{ find: 'styles', replacement: './src/scss/' },
 				]
@@ -116,7 +116,7 @@ export default {
 			}),
 			alias({
 				entries: [
-					{ find: 'components', replacement: './src/components/' },
+					{ find: 'components', replacement: './src/components' },
 					{ find: 'sections', replacement: './src/sections/' },
 					{ find: 'styles', replacement: './src/scss/' },
 				]
