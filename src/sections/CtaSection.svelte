@@ -14,8 +14,11 @@
   </ul>
   <img class="firstBlock__photo" src="mom.png" alt="Карайчикова Гульсара">
   <div class="firstBlock__btn">
-    <Btn on:click={showModalForm}>Консультация психолога</Btn>
+    <Btn on:click={showModalForm}>Консультация пси2холога</Btn>
   </div>
+
+  <LeadForm bind:show={showModal} on:closeModal={closeModalHandler}></LeadForm>
+  
 </section>
 
 <script>
@@ -28,9 +31,13 @@ const list = [
   'Гарантия результата',
   'Помогли более 10 000 человек в СНГ'
 ]
-
+let showModal = false
 function showModalForm () {
-  alert(2)
+  showModal = true
+}
+
+function closeModalHandler ({ detail }) {
+  showModal = detail
 }
 </script>
 

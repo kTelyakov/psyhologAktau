@@ -12,6 +12,11 @@
     <slot></slot>
   </h2>
 {/if}
+{#if size === 'm'}
+  <h2 class="heading--m">
+    <slot></slot>
+  </h2>
+{/if}
 
 
 <style lang="scss">
@@ -22,6 +27,11 @@
   }
   &--l {
     font-size: 30px;
+    color: $purple;
+    line-height: 1.1;
+  }
+  &--m {
+    font-size: 20px;
     color: $purple;
     line-height: 1.1;
   }
