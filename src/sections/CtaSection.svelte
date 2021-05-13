@@ -14,11 +14,11 @@
   </ul>
   <img class="firstBlock__photo" src="mom.png" alt="Карайчикова Гульсара">
   <div class="firstBlock__btn">
-    <Btn on:click={showModalForm}>Консультация пси2холога</Btn>
+    <Btn on:click={showModalForm}>Консультация психолога</Btn>
   </div>
 
-  <LeadForm bind:show={showModal} on:closeModal={closeModalHandler}></LeadForm>
-  
+  <LeadForm bind:show={showModal} on:closeModal={closeModalHandler} header="Заказать бесплатную консультацию"></LeadForm>
+
 </section>
 
 <script>

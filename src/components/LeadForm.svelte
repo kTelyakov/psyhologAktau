@@ -1,17 +1,17 @@
 <script>
   import ModalLayout from './ModalLayout.svelte'
   import Btn from './Btn.svelte'
-  
+
   export let show
   export let header
   </script>
-  
+
   {#if show}
     <ModalLayout show>
       <div class="leadFormContent">
         <div class="leadFormContent__header">
           <div class="leadFormContent__headerTitle">
-            header : { header }    
+            { header }
           </div>
         </div>
         <h2>Заявка</h2>
@@ -20,7 +20,7 @@
       </div>
     </ModalLayout>
   {/if}
-  
+
   <style lang="scss">
   @import '../scss/mixins.scss';
   @import '../scss/colors.scss';
@@ -49,6 +49,5 @@
       font-size: 20px;
       color: white;
     }
-  }  
+  }
   </style>
-  
