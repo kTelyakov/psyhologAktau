@@ -1,9 +1,17 @@
 <script>
 import ModalLayout from './ModalLayout.svelte'
+import BaseInput from 'components/BaseInput.svelte'
 import Btn from './Btn.svelte'
+
+function closeLeadForm () {
+  show = false
+}
 
 export let show
 export let header
+
+let leadName = ''
+let leadPhone = ''
 </script>
 
 {#if show}
@@ -13,11 +21,15 @@ export let header
         <div class="leadFormContent__headerTitle">
           { header }
         </div>
+        <div class="leadFormContent__closeIcon" on:click={closeLeadForm}>
+          <img src="close.svg" alt="">
+        </div>
       </div>
-      <h3>Some content</h3>
-<!--        <h2>Заявка</h2>-->
-<!--        <input type="text" placeholder="имя">-->
-<!--        <input type="text" placeholder="телефон">-->
+      <div class="leadFormContent__body">
+        <BaseInput bind:value={leadName} placeholder="Ваше имя"></BaseInput>
+        <BaseInput bind:value={leadPhone} placeholder="Ваш телефон"></BaseInput>
+        <Btn>Получить бесплатную консультацию</Btn>
+      </div>
     </div>
   </ModalLayout>
 {/if}
@@ -28,7 +40,7 @@ export let header
   .leadFormContent {
     background-color: white;
     margin: 0 auto;
-    padding: 10px;
+    /*padding: 10px;*/
     position: relative;
     width: 50%;
     height: 50%;
@@ -40,15 +52,39 @@ export let header
       height: 100%;
     }
     &__header {
-      height: 64px;
+      height: 35px;
       background: $purple;
-      @include mobile {
-        padding: 20px;
-      }
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     &__headerTitle {
-      font-size: 20px;
       color: white;
+      font-size: 20px;
+      @include mobile {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+    &__closeIcon {
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      & img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    /* body */
+    &__body {
+      padding: 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
     }
   }
   </style>
