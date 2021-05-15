@@ -1,7 +1,7 @@
 <section class="firstBlock">
   <div class="firstBlock__title">
     <Heading size="l">
-      Помощь в решении<br> психологических проблем<br> любой сложности
+      {@html ctaText }
     </Heading>
   </div>
   <ul class="firstBlock__list">
@@ -32,6 +32,8 @@ const list = [
   'Помогли более 10 000 человек в СНГ'
 ]
 let showModal = false
+
+export let ctaText = 'Помощь в решении<br> психологических проблем<br> любой сложности'
 function showModalForm () {
   showModal = true
 }

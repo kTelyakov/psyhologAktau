@@ -35,7 +35,7 @@ function expandHandler () {
     <div class="expand__title">
       <span class="expand__text">{title}</span>
       <div class="expand__arrow {open ? '_up' : ''}">
-        <img src="arrow.svg" alt="">
+        <img src="arrow.svg" alt="" on:click={expandHandler}>
       </div>
     </div>
   </div>

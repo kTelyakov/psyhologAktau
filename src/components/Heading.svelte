@@ -1,16 +1,12 @@
-<script lang="ts">
-  export let size: 'xl' | 'l' | 'm' | 's' = 'xl'
+<script>
+// 'xl' | 'l' | 'm' | 's'
+export let size = 'xl'
 </script>
 
-{#if size === 'xl'}
-  <h1 class="heading--xl">
+{#if size === 'l'}
+  <h1 class="heading--l">
     <slot></slot>
   </h1>
-{/if}
-{#if size === 'l'}
-  <h2 class="heading--l">
-    <slot></slot>
-  </h2>
 {/if}
 {#if size === 'm'}
   <h2 class="heading--m">
@@ -34,6 +30,7 @@
     font-size: 20px;
     color: $purple;
     line-height: 1.1;
+    margin-bottom: 20px;
   }
 }
 </style>
