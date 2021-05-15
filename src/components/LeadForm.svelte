@@ -1,27 +1,28 @@
 <script>
-  import ModalLayout from './ModalLayout.svelte'
-  import Btn from './Btn.svelte'
+import ModalLayout from './ModalLayout.svelte'
+import Btn from './Btn.svelte'
 
-  export let show
-  export let header
-  </script>
+export let show
+export let header
+</script>
 
-  {#if show}
-    <ModalLayout show>
-      <div class="leadFormContent">
-        <div class="leadFormContent__header">
-          <div class="leadFormContent__headerTitle">
-            { header }
-          </div>
+{#if show}
+  <ModalLayout bind:show>
+    <div class="leadFormContent">
+      <div class="leadFormContent__header">
+        <div class="leadFormContent__headerTitle">
+          { header }
         </div>
-        <h2>Заявка</h2>
-        <input type="text" placeholder="имя">
-        <input type="text" placeholder="телефон">
       </div>
-    </ModalLayout>
-  {/if}
+      <h3>Some content</h3>
+<!--        <h2>Заявка</h2>-->
+<!--        <input type="text" placeholder="имя">-->
+<!--        <input type="text" placeholder="телефон">-->
+    </div>
+  </ModalLayout>
+{/if}
 
-  <style lang="scss">
+<style lang="scss">
   @import '../scss/mixins.scss';
   @import '../scss/colors.scss';
   .leadFormContent {

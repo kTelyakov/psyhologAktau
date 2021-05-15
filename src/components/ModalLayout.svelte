@@ -1,8 +1,14 @@
 <script>
 export let show
+function closeModal (e) {
+  // Клик на подложке
+  if ([...e.target.classList].includes('modalLayout')) {
+    show = false
+  }
+}
 </script>
 
-<div class="modalLayout" on:click={ () => show = false } >
+<div class="modalLayout" on:click={ closeModal } >
   <slot></slot>
 </div>
 

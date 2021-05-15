@@ -1,11 +1,6 @@
 <script>
 import ModalLayout from './ModalLayout.svelte'
 import Btn from './Btn.svelte'
-
-function closeModalHandler () {
-  show = false
-}
-
 export let show
 export let videoId
 export let description = ''
