@@ -8,38 +8,38 @@ const services = [
     imgUrl: 'service1.png',
     title: 'Индивидуальные консультации',
     description: 'Помогут решить любую проблему',
-    btnText: 'Подробнее'
+    btnText: ''
 
   },
   {
     imgUrl: 'service2.png',
     title: 'Семейные консультации',
     description: 'Подойдут для семейных пар',
-    btnText: 'Подробнее'
+    btnText: ''
   },
   {
     imgUrl: 'service3.png',
     title: 'Skype консультации',
     description: 'Для дистанционной работы',
-    btnText: 'Подробнее'
+    btnText: ''
   },
   {
     imgUrl: 'service4.png',
     title: 'Корпоративные тренинги',
     description: 'Для юридических лиц',
-    btnText: 'Подробнее'
+    btnText: ''
   },
   {
     imgUrl: 'service5.png',
     title: 'Детский психолог',
     description: 'Для детей до 7 лет',
-    btnText: 'Подробнее'
+    btnText: ''
   },
   {
     imgUrl: 'service6.png',
     title: 'Подростковый психолог',
     description: 'Работа с трудными подростками',
-    btnText: 'Подробнее'
+    btnText: ''
   }
 ]
 </script>

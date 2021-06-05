@@ -1,13 +1,16 @@
-<script context="module" lang="ts">
-	export function preload() {
-		return this.fetch(`blog.json`).then((r: { json: () => any; }) => r.json()).then((posts: { slug: string; title: string, html: any }[]) => {
-			return { posts };
-		});
-	}
+<script context="module">
+const API_KEY = 'keyUbBI3quLGFOZAA'
+export function preload() {
+	return this.fetch(`https://api.airtable.com/v0/appEa1NDhplnr9PcN/Table%201`,
+		{ headers: { Authorization: `Bearer ${API_KEY}` }}
+	).then((res) => res.json()).then(({ records }) => {
+		return { posts: records.map(record => record.fields) }
+	})
+}
 </script>
 
-<script lang="ts">
-	export let posts: { slug: string; title: string, html: any }[];
+<script>
+	export let posts = []
 </script>
 
 <style>
