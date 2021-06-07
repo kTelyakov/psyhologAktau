@@ -1,16 +1,7 @@
-<script context="module">
-const API_KEY = 'keyUbBI3quLGFOZAA'
-export function preload() {
-	return this.fetch(`https://api.airtable.com/v0/appEa1NDhplnr9PcN/Table%201`,
-		{ headers: { Authorization: `Bearer ${API_KEY}` }}
-	).then((res) => res.json()).then(({ records }) => {
-		return { posts: records.map(record => record.fields) }
-	})
-}
-</script>
-
 <script>
-	export let posts = []
+	import postsContent from './_posts'
+	// let posts = [...posts]
+	let posts = [...postsContent.filter(post => post)]
 </script>
 
 <style>
@@ -32,6 +23,6 @@ export function preload() {
 				tell Sapper to load the data for the page as soon as
 				the user hovers over the link or taps it, instead of
 				waiting for the 'click' event -->
-		<li><a rel="prefetch" href="blog/{post.slug}">{post.title}</a></li>
+		<li><a rel="prefetch" href="{post.slug}">{post.title}</a></li>
 	{/each}
 </ul>

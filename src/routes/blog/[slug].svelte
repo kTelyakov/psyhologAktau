@@ -1,15 +1,12 @@
 <script context="module" lang="ts">
+	import posts from './_posts'
 	export async function preload({ params }) {
+
 		// the `slug` parameter is available because
 		// this file is called [slug].svelte
-		const res = await this.fetch(`blog/${params.slug}.json`);
-		const data = await res.json();
-
-		if (res.status === 200) {
-			return { post: data };
-		} else {
-			this.error(res.status, data.message);
-		}
+		const slug = params.slug.replace('/blog/', '').replace(/\//g, '-').slice(0, -1)
+		console.log('@@SLUG : ', slug)
+		return { post: posts[slug] }
 	}
 </script>
 

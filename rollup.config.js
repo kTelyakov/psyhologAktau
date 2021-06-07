@@ -13,6 +13,7 @@ import typescript from '@rollup/plugin-typescript';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 import alias from '@rollup/plugin-alias';
+import json from '@rollup/plugin-json';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -29,6 +30,7 @@ export default {
 		input: config.client.input().replace(/\.js$/, '.ts'),
 		output: config.client.output(),
 		plugins: [
+			json(),
 			markdown(),
 			glob(),
 			replace({
@@ -96,6 +98,7 @@ export default {
 		output: config.server.output(),
 		port: 8080,
 		plugins: [
+			json(),
 			markdown(),
 			glob(),
 			replace({
