@@ -1,12 +1,13 @@
 <script context="module" lang="ts">
 	import posts from './_posts'
-	export async function preload({ params }) {
+	export async function preload(data) {
+		console.log('@@@ : ', data)
 
 		// the `slug` parameter is available because
 		// this file is called [slug].svelte
-		const slug = params.slug.replace('/blog/', '').replace(/\//g, '-').slice(0, -1)
-		console.log('@@SLUG : ', slug)
-		return { post: posts[slug] }
+		// const slug = params.slug.replace('/blog/', '').replace(/\//g, '-').slice(0, -1)
+		// console.log('@@SLUG : ', slug)
+		return { post: { slug: 'SOME SLUG', title: 'SOME TITLE', html: '' } }
 	}
 </script>
 
