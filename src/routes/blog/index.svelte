@@ -4,17 +4,20 @@
 
 <div class="blog">
 	{#each posts as post}
-		<Card cardObj={post}></Card>
+		<a sapper:prefetch href={post.slug}>
+			<Card cardObj={post}></Card>
+		</a>
 	{/each}
 </div>
 
 <script>
 import Card from 'components/Card.svelte'
 import postsContent from './_posts'
-let posts = postsContent.filter(post => post).map(({ title, img }) => {
+let posts = postsContent.filter(post => post).map(({ title, img, slug }) => {
 	return {
 		title,
-		imgUrl: '/postImages/' + img
+		imgUrl: '/postImages/' + img,
+		slug,
 	}
 })
 </script>
