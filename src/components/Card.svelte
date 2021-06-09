@@ -8,6 +8,10 @@ function clickHandler () {
   dispatch('click')
 }
 
+function btnClickHandler () {
+  dispatch('clickOnBtn')
+}
+
 export let cardObj = {}
 export let youtubeCard = false
 </script>
@@ -26,7 +30,7 @@ export let youtubeCard = false
     </div>
     {#if cardObj.btnText}
       <div class="card__actions">
-        <Btn>{ cardObj.btnText }</Btn>
+        <Btn on:click={btnClickHandler}>{ cardObj.btnText }</Btn>
       </div>
     {/if}
   </div>
