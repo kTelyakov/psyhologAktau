@@ -1,10 +1,12 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Rise } from '@/shared/ui'
+import { JsonLd, faqSchema, graph } from '@/shared/seo'
 
 import { FAQ } from './faq-data'
 
 export function FaqSection() {
   return (
     <section id="faq" className="mx-auto max-w-6xl px-5 py-20">
+      <JsonLd data={graph(faqSchema(FAQ))} />
       <Rise>
         <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
           Вопрос — ответ

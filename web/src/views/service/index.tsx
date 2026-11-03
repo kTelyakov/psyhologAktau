@@ -2,7 +2,8 @@ import { Check } from 'lucide-react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { Rise } from '@/shared/ui'
+import { Breadcrumbs, Rise } from '@/shared/ui'
+import { JsonLd, breadcrumbSchema, graph, serviceSchema } from '@/shared/seo'
 import { ContactsSection } from '@/widgets/contacts'
 import { HeroSection } from '@/widgets/hero'
 
@@ -24,8 +25,19 @@ export function ServiceView({ slug }: { slug: string }) {
 
   const [first, ...rest] = service.hero.split(' ')
 
+  const crumbs = [
+    { name: 'Главная', url: '/' },
+    { name: service.hero, url: `/${slug}/` },
+  ]
+
+  const jsonLd = graph(
+    serviceSchema({ name: service.hero, description: service.description, url: `/${slug}/` }),
+    breadcrumbSchema(crumbs),
+  )
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <HeroSection
         compact
         title={first}
@@ -34,6 +46,7 @@ export function ServiceView({ slug }: { slug: string }) {
       />
 
       <div className="mx-auto max-w-3xl px-5 py-14">
+        <Breadcrumbs items={crumbs} className="mb-8" />
         {service.blocks.map((block, i) => (
           <Rise key={i} delay={0.05 * i}>
             <section className="mb-12 last:mb-0">

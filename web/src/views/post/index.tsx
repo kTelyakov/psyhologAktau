@@ -1,4 +1,4 @@
-import { CalendarDays, ChevronRight, User } from 'lucide-react'
+import { CalendarDays, User } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,7 +8,10 @@ import { PostCard, getPost, getPostRefs, listPosts } from '@/entities/post'
 import { ApiError } from '@/shared/api'
 import { SITE } from '@/shared/config'
 import { formatDate, isoDate } from '@/shared/lib'
-import { Rise } from '@/shared/ui'
+import {
+  JsonLd, articleSchema, breadcrumbSchema, graph,
+} from '@/shared/seo'
+import { Breadcrumbs, Rise } from '@/shared/ui'
 import { CtaBanner } from '@/widgets/cta'
 
 interface Params {
@@ -62,31 +65,36 @@ export default async function PostView({ params }: Params) {
   const { items: related } = await listPosts({ category, limit: 4 })
   const others = related.filter((p) => p.slug !== post.slug).slice(0, 3)
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: isoDate(post.publishedAt),
-    author: { '@type': 'Person', name: post.author ?? SITE.psychologist },
-    publisher: { '@type': 'Organization', name: SITE.center },
-    image: post.image ? `/media/${post.image}` : undefined,
-  }
+  const crumbs = [
+    { name: 'Главная', url: '/' },
+    { name: 'Статьи', url: '/blog/' },
+    { name: post.categoryTitle ?? 'Рубрика', url: `/blog/${post.category}/` },
+    { name: post.title },
+  ]
+
+  const wordCount = post.content.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
+
+  const jsonLd = graph(
+    articleSchema({
+      title: post.title,
+      description: post.metaDescription ?? post.excerpt,
+      url: post.url,
+      image: post.image,
+      publishedAt: isoDate(post.publishedAt),
+      section: post.categoryTitle,
+      wordCount,
+    }),
+    breadcrumbSchema(crumbs.filter((c) => c.url) as { name: string; url: string }[]),
+  )
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       <article>
         <header className="mx-auto max-w-3xl px-5 pb-8 pt-12">
           <Rise>
-            <nav className="flex items-center gap-1.5 text-sm text-ink-soft">
-              <Link href="/blog/" className="hover:text-clay-600">Статьи</Link>
-              <ChevronRight className="size-3.5" />
-              <Link href={`/blog/${post.category}/`} className="hover:text-clay-600">
-                {post.categoryTitle}
-              </Link>
-            </nav>
+            <Breadcrumbs items={crumbs} />
 
             <h1 className="mt-5 font-display text-[clamp(1.9rem,4vw,3rem)] leading-[1.18] tracking-tight">
               {post.title}
@@ -95,11 +103,13 @@ export default async function PostView({ params }: Params) {
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-rule py-4 text-sm text-ink-soft">
               {post.author && (
                 <span className="flex items-center gap-2">
-                  <User className="size-4" /> {post.author}
+                  <User className="size-4" aria-hidden />
+                  <span rel="author">{post.author}</span>
                 </span>
               )}
               <span className="flex items-center gap-2">
-                <CalendarDays className="size-4" /> {formatDate(post.publishedAt)}
+                <CalendarDays className="size-4" aria-hidden />
+                <time dateTime={isoDate(post.publishedAt)}>{formatDate(post.publishedAt)}</time>
               </span>
             </div>
           </Rise>
@@ -123,7 +133,7 @@ export default async function PostView({ params }: Params) {
         )}
 
         <div className="mx-auto max-w-3xl px-5 pb-14">
-          <div className="article-body" dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div className="article-body" itemProp="articleBody" dangerouslySetInnerHTML={{ __html: post.content }} />
 
           <div className="mt-12 flex items-center gap-3 border-t border-rule pt-6">
             <span className="text-sm text-ink-soft">Рубрика:</span>
@@ -138,7 +148,7 @@ export default async function PostView({ params }: Params) {
       </article>
 
       {others.length > 0 && (
-        <section className="mx-auto max-w-6xl px-5 pb-10">
+        <aside className="mx-auto max-w-6xl px-5 pb-10" aria-label="Похожие статьи">
           <h2 className="mb-6 font-display text-2xl">
             Ещё в рубрике «{post.categoryTitle}»
           </h2>
@@ -149,7 +159,7 @@ export default async function PostView({ params }: Params) {
               </Rise>
             ))}
           </div>
-        </section>
+        </aside>
       )}
 
       <CtaBanner

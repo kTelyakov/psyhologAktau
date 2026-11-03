@@ -1,5 +1,7 @@
 export { BlurFade } from './blur-fade'
 export { Rise } from './rise'
+export { Breadcrumbs } from './breadcrumbs'
+export type { Crumb } from './breadcrumbs'
 export { NumberTicker } from './number-ticker'
 export { Marquee } from './marquee'
 export { BorderBeam } from './border-beam'

@@ -7,7 +7,8 @@ import { getCategory, listCategories } from '@/entities/category'
 import { PostCard, listPosts } from '@/entities/post'
 import { CategoryFilter } from '@/features/blog-filter'
 import { postsPlural } from '@/shared/lib'
-import { Rise, DotPattern } from '@/shared/ui'
+import { JsonLd, breadcrumbSchema, graph, itemListSchema } from '@/shared/seo'
+import { Breadcrumbs, DotPattern, Rise } from '@/shared/ui'
 import { CtaBanner } from '@/widgets/cta'
 
 interface Params {
@@ -33,8 +34,20 @@ export default async function CategoryView({ params }: Params) {
 
   const { items } = await listPosts({ category: slug, limit: 100 })
 
+  const crumbs = [
+    { name: 'Главная', url: '/' },
+    { name: 'Статьи', url: '/blog/' },
+    { name: category.title, url: category.url },
+  ]
+
+  const jsonLd = graph(
+    breadcrumbSchema(crumbs),
+    itemListSchema(items.map((p) => ({ name: p.title, url: p.url }))),
+  )
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <section className="relative overflow-hidden border-b border-rule">
         <DotPattern className="[mask-image:radial-gradient(60%_60%_at_50%_40%,white,transparent)] fill-ink/[0.07]" />
         <div className="relative mx-auto max-w-6xl px-5 pb-10 pt-16">

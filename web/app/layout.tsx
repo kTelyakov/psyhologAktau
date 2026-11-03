@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next'
 import { Lora, Manrope } from 'next/font/google'
 
 import { SITE } from '@/shared/config'
+import { JsonLd, graph, organizationSchema, personSchema, websiteSchema } from '@/shared/seo'
 import { SiteFooter } from '@/widgets/footer'
 import { SiteHeader } from '@/widgets/header'
 
@@ -34,7 +35,17 @@ export const metadata: Metadata = {
     'психолог Актау', 'психолог в Актау', 'семейный психолог Актау',
     'детский психолог Актау', 'консультация психолога', 'Ару-Ана',
   ],
-  openGraph: { type: 'website', locale: 'ru_KZ', siteName: SITE.center },
+  alternates: {
+    canonical: '/',
+    languages: { 'ru-KZ': '/', 'x-default': '/' },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ru_KZ',
+    siteName: SITE.center,
+    images: [{ url: '/psyholog.png', width: 460, height: 560, alt: SITE.psychologist }],
+  },
+  twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
 }
 
@@ -44,32 +55,11 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': 'https://psyholog-aktau.kz/#organization',
-  name: SITE.center,
-  description: 'Центр практической психологии в Актау',
-  telephone: '+77025253857',
-  email: SITE.email,
-  url: 'https://psyholog-aktau.kz',
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'KZ',
-    addressRegion: 'Мангистауская область',
-    addressLocality: 'Актау',
-    streetAddress: '28А мкр., бизнес-центр «Тианде»',
-  },
-  founder: { '@type': 'Person', name: SITE.psychologist, jobTitle: 'Психолог' },
-  sameAs: SITE.socials.map((s) => s.href),
-  priceRange: '₸₸',
-}
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={`${display.variable} ${sans.variable}`}>
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+        <JsonLd data={graph(organizationSchema(), personSchema(), websiteSchema())} />
       </head>
       <body className="font-sans antialiased">
         <SiteHeader />

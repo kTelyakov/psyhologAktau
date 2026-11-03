@@ -26,6 +26,7 @@ export function ContactsSection() {
 
       <div className="mt-12 grid gap-8 md:grid-cols-2">
         <Rise>
+          <address className="not-italic">
           <ul className="space-y-5">
             {items.map(({ Icon, label, value, href }) => (
               <li key={label} className="flex gap-4">
@@ -43,6 +44,7 @@ export function ContactsSection() {
               </li>
             ))}
           </ul>
+          </address>
 
           <a
             href="https://2gis.kz/aktau"

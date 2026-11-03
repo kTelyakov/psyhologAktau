@@ -4,7 +4,8 @@ import { listCategories } from '@/entities/category'
 import { PostCard, listPosts } from '@/entities/post'
 import { CategoryFilter } from '@/features/blog-filter'
 import { postsPlural } from '@/shared/lib'
-import { Rise, DotPattern } from '@/shared/ui'
+import { JsonLd, breadcrumbSchema, graph, itemListSchema } from '@/shared/seo'
+import { Breadcrumbs, DotPattern, Rise } from '@/shared/ui'
 import { CtaBanner } from '@/widgets/cta'
 
 export const metadata: Metadata = {
@@ -21,11 +22,21 @@ export default async function BlogView() {
     listCategories(),
   ])
 
+  const jsonLd = graph(
+    breadcrumbSchema([
+      { name: 'Главная', url: '/' },
+      { name: 'Статьи', url: '/blog/' },
+    ]),
+    itemListSchema(items.map((p) => ({ name: p.title, url: p.url }))),
+  )
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <section className="relative overflow-hidden border-b border-rule">
         <DotPattern className="[mask-image:radial-gradient(60%_60%_at_50%_40%,white,transparent)] fill-ink/[0.07]" />
         <div className="relative mx-auto max-w-6xl px-5 pb-10 pt-16">
+          <Breadcrumbs items={[{ name: 'Главная', url: '/' }, { name: 'Статьи' }]} className="mb-6 justify-center [&>ol]:justify-center" />
           <Rise>
             <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
               Блог
