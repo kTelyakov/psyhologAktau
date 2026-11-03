@@ -113,8 +113,39 @@ async def main() -> int:
                     setattr(m, k, v)
                 updated += 1
 
+        # Удаляем то, чего больше нет в контенте: статьи переносят между
+        # рубриками, рубрики расформировывают. Без этого в БД копятся
+        # осиротевшие записи и счётчики расходятся с источником.
+        wanted = {(p["category"], p["slug"]) for p in index["posts"]}
+        stale_posts = 0
+        rows = (await s.execute(
+            select(PostModel, CategoryModel.slug).join(CategoryModel)
+        )).all()
+        for post, cat_slug in rows:
+            if (cat_slug, post.slug) not in wanted:
+                await s.delete(post)
+                stale_posts += 1
+
+        await s.flush()
+
+        wanted_cats = {c["slug"] for c in index["categories"]}
+        stale_cats = 0
+        for cat in (await s.execute(select(CategoryModel))).scalars().all():
+            if cat.slug not in wanted_cats:
+                await s.delete(cat)
+                stale_cats += 1
+
+        wanted_authors = {slugify(a) for a in index["authors"]}
+        stale_authors = 0
+        for author in (await s.execute(select(AuthorModel))).scalars().all():
+            if author.slug not in wanted_authors:
+                await s.delete(author)
+                stale_authors += 1
+
         await s.commit()
 
+    if stale_posts or stale_cats or stale_authors:
+        print(f"удалено    : статей {stale_posts}, рубрик {stale_cats}, авторов {stale_authors}")
     print(f"авторов    : {len(index['authors'])}")
     print(f"категорий  : {len(index['categories'])}")
     print(f"статей     : создано {created}, обновлено {updated}")

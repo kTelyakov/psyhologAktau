@@ -29,6 +29,16 @@ const CATEGORY_TITLES = {
   'stati-tatjany-ivahnickoj': 'Статьи Татьяны Ивахницкой',
 }
 
+// Все статьи публикуются под одним автором — решение владельца сайта.
+// В исходной выгрузке из WordPress авторов было двое.
+const AUTHOR = 'Гульсара Карайчикова'
+
+// Рубрика второго автора расформирована — статья переезжает по смыслу.
+// Старый URL закрыт 301-м редиректом в web/next.config.ts.
+const CATEGORY_MOVE = {
+  'stati-tatjany-ivahnickoj': 'poleznye-sovety',
+}
+
 // Классы-мусор от скрейпа Instagram
 const JUNK_CLASSES = /\b(Xl2Pu|gElp9|P9YgZ|C7I1f|X7jCj|C4VMK|_8-yf5|FPmhX|notranslate|_0imsa|Jv7Aj|KL4Bh|FFVAD|eLAPa|RnEpo|Yi5aA|_9AhH0|ZyFrc|_7UhW9|qyrsm|KV-D4|se6yk|T0kll)\b/g
 
@@ -138,7 +148,8 @@ for (const post of raw) {
     continue
   }
 
-  const [, category, slug] = parts
+  const [, rawCategory, slug] = parts
+  const category = CATEGORY_MOVE[rawCategory] || rawCategory
   const publishedAt = extractDate(post.content || '')
   if (!publishedAt) stats.noDate.push(`${category}/${slug}`)
 
@@ -149,7 +160,7 @@ for (const post of raw) {
     category,
     categoryTitle: CATEGORY_TITLES[category] || category,
     title: (post.title || '').trim(),
-    author: (post.author || '').trim() || null,
+    author: AUTHOR,
     image: post.img || null,
     publishedAt,
     excerpt: makeExcerpt(content),
