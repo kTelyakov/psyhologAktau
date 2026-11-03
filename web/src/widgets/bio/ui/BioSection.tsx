@@ -1,13 +1,24 @@
 import { Award, Users } from 'lucide-react'
 import Image from 'next/image'
 
+import { CertificateGallery, type Certificate } from '@/features/certificate-gallery'
 import { LeadFormModal } from '@/features/lead-form'
 import { SITE } from '@/shared/config'
-import { Rise, Marquee, NumberTicker } from '@/shared/ui'
+import { NumberTicker, Rise } from '@/shared/ui'
 
-const DIPLOMAS = [
-  'dip1.jpeg', 'dip2.png', 'dip3.png', 'dip4.png', 'dip5.png', 'dip6.png',
-  'dip7.jpeg', 'dip8.jpeg', 'dip9.jpeg', 'dip10.jpeg', 'dip11.jpeg', 'dip12.jpeg',
+const DIPLOMAS: Certificate[] = [
+  { file: 'dip1.jpeg' },
+  { file: 'dip2.png' },
+  { file: 'dip3.png' },
+  { file: 'dip4.png' },
+  { file: 'dip5.png' },
+  { file: 'dip6.png' },
+  { file: 'dip7.jpeg' },
+  { file: 'dip8.jpeg' },
+  { file: 'dip9.jpeg' },
+  { file: 'dip10.jpeg' },
+  { file: 'dip11.jpeg' },
+  { file: 'dip12.jpeg' },
 ]
 
 export function BioSection() {
@@ -79,19 +90,9 @@ export function BioSection() {
             <p className="mt-2 text-center text-sm text-ink-soft">
               {DIPLOMAS.length} документов о профессиональной подготовке
             </p>
-            <Marquee pauseOnHover className="mt-8 [--duration:50s] [--gap:1rem]">
-              {DIPLOMAS.map((d) => (
-                <a
-                  key={d}
-                  href={`/diploms/${d}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative h-36 w-52 shrink-0 overflow-hidden rounded-xl border border-rule bg-paper transition-transform duration-300 hover:scale-[1.04]"
-                >
-                  <Image src={`/diploms/${d}`} alt="Диплом" fill sizes="208px" className="object-cover" />
-                </a>
-              ))}
-            </Marquee>
+            <div className="mt-8">
+              <CertificateGallery items={DIPLOMAS} />
+            </div>
           </div>
         </Rise>
       </div>
