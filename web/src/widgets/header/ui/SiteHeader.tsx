@@ -1,16 +1,15 @@
 'use client'
 
-import { Burger, Button, Container, Drawer, Group, Stack, Text } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import { IconPhone } from '@tabler/icons-react'
+import { Menu, Phone, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 import { LeadFormModal } from '@/features/lead-form'
 import { SITE } from '@/shared/config'
-
-import classes from './SiteHeader.module.css'
+import { cn } from '@/shared/lib'
+import { Button } from '@/shared/ui'
 
 const LINKS = [
   { label: 'Главная', href: '/' },
@@ -20,69 +19,90 @@ const LINKS = [
 ]
 
 export function SiteHeader() {
-  const [opened, { toggle, close }] = useDisclosure(false)
+  const [open, setOpen] = useState(false)
   const pathname = usePathname()
-
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href.replace(/\/$/, ''))
 
   return (
-    <header className={classes.header}>
-      <Container size="lg" className={classes.inner}>
-        <Link href="/" className={classes.brand}>
-          <Image src="/logo.png" alt="" width={48} height={48} className={classes.logo} />
-          <div>
-            <Text fw={700} fz="lg" lh={1.1} c="brand.8">
-              {SITE.name}
-            </Text>
-            <Text fz="xs" c="dimmed" lh={1.3} visibleFrom="xs">
-              {SITE.center}
-            </Text>
-          </div>
+    <header className="sticky top-0 z-50 border-b border-rule/80 bg-paper/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-4 px-5">
+        <Link href="/" className="flex shrink-0 items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt=""
+            width={42}
+            height={42}
+            priority
+            unoptimized
+            className="object-contain"
+          />
+          <span className="leading-tight">
+            <span className="block font-display text-lg">Ару-Ана</span>
+            <span className="hidden text-[11px] tracking-wide text-ink-soft xs:block">
+              центр практической психологии
+            </span>
+          </span>
         </Link>
 
-        <Group gap={4} visibleFrom="md" component="nav">
+        <nav className="hidden items-center gap-1 md:flex">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={classes.link}
-              data-active={isActive(l.href) || undefined}
+              className={cn(
+                'rounded-full px-4 py-2 text-sm font-semibold transition-colors',
+                isActive(l.href)
+                  ? 'bg-clay-500 text-white'
+                  : 'text-ink-soft hover:bg-clay-50 hover:text-clay-600',
+              )}
             >
               {l.label}
             </Link>
           ))}
-        </Group>
+        </nav>
 
-        <Group gap="sm" wrap="nowrap">
-          <Button
-            component="a"
+        <div className="flex items-center gap-2">
+          <a
             href={SITE.phoneHref}
-            variant="subtle"
-            leftSection={<IconPhone size={16} stroke={1.6} />}
-            visibleFrom="sm"
+            className="hidden items-center gap-2 px-3 text-sm font-semibold transition-colors hover:text-clay-600 sm:flex"
           >
+            <Phone className="size-4" />
             {SITE.phone}
-          </Button>
-          <LeadFormModal label="Записаться" visibleFrom="md" />
-          <Burger opened={opened} onClick={toggle} hiddenFrom="md" aria-label="Меню" />
-        </Group>
-      </Container>
+          </a>
+          <LeadFormModal label="Записаться" size="sm" className="hidden md:inline-flex" />
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Меню"
+            className="grid size-10 cursor-pointer place-items-center rounded-full hover:bg-paper-2 md:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
+      </div>
 
-      <Drawer opened={opened} onClose={close} title="Меню" position="right" size="xs">
-        <Stack gap="xs">
-          {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className={classes.drawerLink} onClick={close}>
-              {l.label}
-            </Link>
-          ))}
-          <Button component="a" href={SITE.phoneHref} variant="light" mt="md" fullWidth
-                  leftSection={<IconPhone size={16} />}>
-            {SITE.phone}
-          </Button>
-          <LeadFormModal label="Записаться" fullWidth />
-        </Stack>
-      </Drawer>
+      {open && (
+        <nav className="border-t border-rule bg-paper px-5 py-4 md:hidden">
+          <div className="flex flex-col gap-1">
+            {LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-4 py-3 font-semibold text-ink-soft hover:bg-paper-2 hover:text-ink"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Button asChild variant="outline" className="mt-2">
+              <a href={SITE.phoneHref}>
+                <Phone className="size-4" /> {SITE.phone}
+              </a>
+            </Button>
+            <LeadFormModal label="Записаться" className="mt-1 w-full" />
+          </div>
+        </nav>
+      )}
     </header>
   )
 }

@@ -1,7 +1,7 @@
-import { Box, Container, Stack, Text, Title } from '@mantine/core'
 import Image from 'next/image'
 
-import classes from './PhotoReportsSection.module.css'
+import { Rise } from '@/shared/ui'
+import { cn } from '@/shared/lib'
 
 const PHOTOS = [
   'report1.jpeg', 'report2.jpeg', 'report3.jpeg', 'report4.jpeg',
@@ -10,23 +10,42 @@ const PHOTOS = [
 
 export function PhotoReportsSection() {
   return (
-    <Box bg="white" style={{ borderBlock: '1px solid var(--mantine-color-gray-2)' }}>
-      <Container size="lg" py={72}>
-        <Stack gap={8} align="center" mb={48}>
-          <Text tt="uppercase" fz="sm" fw={600} c="brand.6" lts="0.08em">Фотоотчёты</Text>
-          <Title order={2} ta="center">Тренинги и мастер-классы</Title>
-        </Stack>
+    <section className="border-y border-rule bg-white py-20">
+      <div className="mx-auto max-w-6xl px-5">
+        <Rise>
+          <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
+            Фотоотчёты
+          </p>
+          <h2 className="mt-3 text-center font-display text-[clamp(1.8rem,3.5vw,2.7rem)] tracking-tight">
+            Тренинги и мастер-классы
+          </h2>
+        </Rise>
 
-        <div className={classes.grid}>
+        <div className="mt-12 grid auto-rows-[180px] grid-cols-2 gap-3 md:grid-cols-4">
           {PHOTOS.map((p, i) => (
-            <a key={p} href={`/photoReports/${p}`} target="_blank" rel="noopener noreferrer"
-               className={classes.item} data-wide={i % 5 === 0 || undefined}>
-              <Image src={`/photoReports/${p}`} alt="Фото с тренинга" width={600} height={400}
-                     className={classes.img} />
-            </a>
+            <Rise
+              key={p}
+              delay={0.05 * i}
+              className={cn(i === 0 && 'col-span-2 row-span-2', i === 5 && 'md:col-span-2')}
+            >
+              <a
+                href={`/photoReports/${p}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block size-full overflow-hidden rounded-2xl bg-clay-50"
+              >
+                <Image
+                  src={`/photoReports/${p}`}
+                  alt="Фото с тренинга"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </a>
+            </Rise>
           ))}
         </div>
-      </Container>
-    </Box>
+      </div>
+    </section>
   )
 }

@@ -1,7 +1,7 @@
-import { Container, Stack, Text, Title } from '@mantine/core'
 import type { Metadata } from 'next'
 
 import { SITE } from '@/shared/config'
+import { Rise, DotPattern } from '@/shared/ui'
 import { ContactsSection } from '@/widgets/contacts'
 
 export const metadata: Metadata = {
@@ -13,16 +13,23 @@ export const metadata: Metadata = {
 export default function ContactsView() {
   return (
     <>
-      <Container size="lg" pt={56} pb={16}>
-        <Stack gap="md" align="center">
-          <Text tt="uppercase" fz="sm" fw={600} c="brand.6" lts="0.08em">Контакты</Text>
-          <Title order={1} ta="center">Как записаться на консультацию</Title>
-          <Text c="dimmed" ta="center" maw={620} fz="lg">
-            Позвоните, напишите или оставьте заявку — свяжемся в ближайшее время
-            и договоримся об удобном времени.
-          </Text>
-        </Stack>
-      </Container>
+      <section className="relative overflow-hidden border-b border-rule">
+        <DotPattern className="[mask-image:radial-gradient(60%_60%_at_50%_40%,white,transparent)] fill-ink/[0.07]" />
+        <div className="relative mx-auto max-w-6xl px-5 py-16">
+          <Rise>
+            <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
+              Контакты
+            </p>
+            <h1 className="mt-3 text-center font-display text-[clamp(2rem,4.4vw,3.2rem)] tracking-tight">
+              Как записаться на консультацию
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-center text-lg leading-relaxed text-ink-soft">
+              Позвоните, напишите или оставьте заявку — свяжемся в ближайшее время
+              и договоримся об удобном времени.
+            </p>
+          </Rise>
+        </div>
+      </section>
 
       <ContactsSection />
     </>

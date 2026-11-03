@@ -7,6 +7,7 @@ import { PhotoReportsSection } from '@/widgets/photo-reports'
 import { ServicesSection } from '@/widgets/services'
 import { TestimonialsSection } from '@/widgets/testimonials'
 import { TvSection } from '@/widgets/tv'
+
 import { LatestPosts } from './LatestPosts'
 
 export function HomeView() {

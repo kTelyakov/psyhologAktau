@@ -1,6 +1,5 @@
-import { Box, Container, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-
 import { VideoCard } from '@/features/youtube-modal'
+import { Rise } from '@/shared/ui'
 
 const TV_ITEMS = [
   { youtubeId: '1qlAjCqdsZw', image: 'tvSection/tv1.png', title: 'Какой должна быть молодая жена?' },
@@ -12,19 +11,23 @@ const TV_ITEMS = [
 
 export function TvSection() {
   return (
-    <Box bg="white" style={{ borderBlock: '1px solid var(--mantine-color-gray-2)' }}>
-      <Container size="lg" py={72}>
-        <Stack gap={8} align="center" mb={48}>
-          <Text tt="uppercase" fz="sm" fw={600} c="brand.6" lts="0.08em">На телевидении</Text>
-          <Title order={2} ta="center">Выступления и интервью</Title>
-        </Stack>
+    <section className="mx-auto max-w-6xl px-5 py-20">
+      <Rise>
+        <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
+          На телевидении
+        </p>
+        <h2 className="mt-3 text-center font-display text-[clamp(1.8rem,3.5vw,2.7rem)] tracking-tight">
+          Выступления и интервью
+        </h2>
+      </Rise>
 
-        <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 5 }} spacing="lg">
-          {TV_ITEMS.map((t) => (
-            <VideoCard key={t.youtubeId} {...t} />
-          ))}
-        </SimpleGrid>
-      </Container>
-    </Box>
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {TV_ITEMS.map((t, i) => (
+          <Rise key={t.youtubeId} delay={0.06 * i}>
+            <VideoCard {...t} />
+          </Rise>
+        ))}
+      </div>
+    </section>
   )
 }

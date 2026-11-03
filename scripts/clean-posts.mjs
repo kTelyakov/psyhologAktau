@@ -74,8 +74,35 @@ function clean(html) {
   s = s.replace(/\sstyle="\s*"/g, '')
   s = s.replace(/<(\w+)>\s*<\/\1>/g, '')
 
-  // 7. Нормализуем пробелы
-  s = s.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim()
+  // 7. Пересборка абзацев.
+  //    В выгрузке WordPress текст склеен тегами <br>, причём часто лежит
+  //    вообще вне <p>. Поэтому: прячем блочные элементы, приводим все
+  //    разделители к пустой строке, затем заново раскладываем по абзацам.
+  const blocks = []
+  const BLOCK_RE = /<(ul|ol|blockquote|h[2-6]|table|figure|pre)\b[\s\S]*?<\/\1>|<(?:hr|img)\b[^>]*\/?>/gi
+  s = s.replace(BLOCK_RE, (m) => {
+    blocks.push(m)
+    return `\n\n@@BLOCK${blocks.length - 1}@@\n\n`
+  })
+
+  // Любой <br> и любая граница <p> — это конец абзаца
+  s = s.replace(/<br\s*\/?>/gi, '\n\n')
+  s = s.replace(/<\/?p\b[^>]*>/gi, '\n\n')
+  s = s.replace(/<\/?div\b[^>]*>/gi, '\n\n')
+
+  s = s
+    .split(/\n{2,}/)
+    .map((chunk) => chunk.replace(/\s+/g, ' ').trim())
+    .filter((chunk) => chunk && chunk !== '&nbsp;' && chunk !== '&nbsp')
+    .map((chunk) => (/^@@BLOCK\d+@@$/.test(chunk) ? chunk : `<p>${chunk}</p>`))
+    .join('\n')
+
+  // 8. Возвращаем блочные элементы на место
+  s = s.replace(/@@BLOCK(\d+)@@/g, (_, i) => blocks[Number(i)])
+
+  // 9. Финальная чистка
+  s = s.replace(/<p>\s*<\/p>/gi, '')
+  s = s.replace(/\n{3,}/g, '\n\n').trim()
 
   return s
 }

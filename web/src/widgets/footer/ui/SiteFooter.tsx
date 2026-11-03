@@ -1,71 +1,80 @@
-import { Anchor, Container, Divider, Group, SimpleGrid, Stack, Text } from '@mantine/core'
-import { IconMail, IconMapPin, IconPhone } from '@tabler/icons-react'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { SITE } from '@/shared/config'
 
-import classes from './SiteFooter.module.css'
+const SECTIONS = [
+  { label: 'Индивидуальные консультации', href: '/individualnye-konsultacii/' },
+  { label: 'Семейные консультации', href: '/semeynye-konsultacii/' },
+  { label: 'Детский психолог', href: '/detskiy-psiholog/' },
+  { label: 'Статьи', href: '/blog/' },
+  { label: 'Контакты', href: '/kontakty/' },
+]
 
 export function SiteFooter() {
   return (
-    <footer className={classes.footer}>
-      <Container size="lg" py={48}>
-        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="xl">
-          <Stack gap="xs">
-            <Text fw={700} c="white" fz="lg">{SITE.name}</Text>
-            <Text fz="sm" c="brand.2">{SITE.center}</Text>
-            <Group gap="sm" mt="sm">
+    <footer className="mt-24 bg-ink text-paper">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <div className="grid gap-10 sm:grid-cols-3">
+          <div>
+            <p className="font-display text-2xl">Ару-Ана</p>
+            <p className="mt-2 text-sm leading-relaxed text-paper/60">
+              Центр практической психологии в Актау
+            </p>
+            <div className="mt-5 flex gap-3">
               {SITE.socials.map((s) => (
-                <Anchor key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-                        aria-label={s.name} className={classes.social}>
-                  <Image src={`/socials/${s.icon}`} alt={s.name} width={28} height={28} />
-                </Anchor>
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.name}
+                  className="grid size-10 place-items-center rounded-full bg-white/10 transition-all hover:-translate-y-0.5 hover:bg-white/20"
+                >
+                  <Image src={`/socials/${s.icon}`} alt={s.name} width={20} height={20} unoptimized />
+                </a>
               ))}
-            </Group>
-          </Stack>
+            </div>
+          </div>
 
-          <Stack gap="xs">
-            <Text fw={600} c="white" fz="sm" tt="uppercase" mb={4}>Разделы</Text>
-            {[
-              { label: 'Индивидуальные консультации', href: '/individualnye-konsultacii/' },
-              { label: 'Семейные консультации', href: '/semeynye-konsultacii/' },
-              { label: 'Детский психолог', href: '/detskiy-psiholog/' },
-              { label: 'Статьи', href: '/blog/' },
-              { label: 'Контакты', href: '/kontakty/' },
-            ].map((l) => (
-              <Anchor key={l.href} component={Link} href={l.href} fz="sm" className={classes.link}>
-                {l.label}
-              </Anchor>
-            ))}
-          </Stack>
+          <div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-paper/50">Разделы</p>
+            <ul className="space-y-2.5">
+              {SECTIONS.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-paper/75 transition-colors hover:text-clay-200">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <Stack gap="sm">
-            <Text fw={600} c="white" fz="sm" tt="uppercase" mb={4}>Контакты</Text>
-            <Group gap={8} wrap="nowrap" align="flex-start">
-              <IconPhone size={16} stroke={1.6} className={classes.icon} />
-              <Anchor href={SITE.phoneHref} fz="sm" className={classes.link}>{SITE.phone}</Anchor>
-            </Group>
-            <Group gap={8} wrap="nowrap" align="flex-start">
-              <IconMail size={16} stroke={1.6} className={classes.icon} />
-              <Anchor href={`mailto:${SITE.email}`} fz="sm" className={classes.link}>{SITE.email}</Anchor>
-            </Group>
-            <Group gap={8} wrap="nowrap" align="flex-start">
-              <IconMapPin size={16} stroke={1.6} className={classes.icon} />
-              <Text fz="sm" c="brand.2">{SITE.address}</Text>
-            </Group>
-          </Stack>
-        </SimpleGrid>
+          <div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-paper/50">Контакты</p>
+            <ul className="space-y-3.5 text-sm">
+              <li className="flex gap-2.5">
+                <Phone className="mt-0.5 size-4 shrink-0 text-clay-300" />
+                <a href={SITE.phoneHref} className="text-paper/75 hover:text-clay-200">{SITE.phone}</a>
+              </li>
+              <li className="flex gap-2.5">
+                <Mail className="mt-0.5 size-4 shrink-0 text-clay-300" />
+                <a href={`mailto:${SITE.email}`} className="text-paper/75 hover:text-clay-200">{SITE.email}</a>
+              </li>
+              <li className="flex gap-2.5">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-clay-300" />
+                <span className="leading-relaxed text-paper/75">{SITE.address}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-        <Divider my="xl" color="rgba(255,255,255,0.14)" />
-
-        <Stack gap={4}>
-          <Text fz="xs" c="brand.3">{SITE.entity}</Text>
-          <Text fz="xs" c="brand.3">
-            © {new Date().getFullYear()} {SITE.center}
-          </Text>
-        </Stack>
-      </Container>
+        <div className="mt-12 space-y-1 border-t border-white/10 pt-6 text-xs text-paper/45">
+          <p>{SITE.entity}</p>
+          <p>© {new Date().getFullYear()} {SITE.center}</p>
+        </div>
+      </div>
     </footer>
   )
 }

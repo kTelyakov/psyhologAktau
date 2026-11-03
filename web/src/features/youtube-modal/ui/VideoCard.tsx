@@ -1,58 +1,63 @@
 'use client'
 
-import { AspectRatio, Card, Modal, Overlay, Text } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import { IconPlayerPlayFilled } from '@tabler/icons-react'
+import { Play } from 'lucide-react'
 import Image from 'next/image'
+import { useState } from 'react'
 
-import classes from './VideoCard.module.css'
+import { cn } from '@/shared/lib'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/shared/ui'
 
 interface Props {
   youtubeId: string
   title: string
   image: string
+  className?: string
 }
 
-export function VideoCard({ youtubeId, title, image }: Props) {
-  const [opened, { open, close }] = useDisclosure(false)
+export function VideoCard({ youtubeId, title, image, className }: Props) {
+  const [open, setOpen] = useState(false)
 
   return (
-    <>
-      <Card
-        className={classes.card}
-        padding={0}
-        shadow="sm"
-        onClick={open}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && open()}
-        aria-label={`Смотреть: ${title}`}
-      >
-        <div className={classes.media}>
-          <Image src={`/${image}`} alt={title} fill sizes="320px" className={classes.image} />
-          <Overlay color="#202656" backgroundOpacity={0.25} />
-          <div className={classes.play}>
-            <IconPlayerPlayFilled size={22} />
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button
+          className={cn(
+            'group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-card border border-rule bg-white text-left',
+            'transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-12px_rgba(33,29,26,0.2)]',
+            className,
+          )}
+        >
+          <div className="relative aspect-[16/10] overflow-hidden bg-clay-100">
+            <Image
+              src={`/${image}`}
+              alt=""
+              fill
+              sizes="320px"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-ink/25 transition-colors group-hover:bg-ink/15" />
+            <span className="absolute inset-0 m-auto grid size-14 place-items-center rounded-full bg-white/95 text-clay-600 shadow-lg transition-transform duration-300 group-hover:scale-110">
+              <Play className="size-5 translate-x-px fill-current" />
+            </span>
           </div>
-        </div>
-        <Text fw={600} fz="sm" p="md" lineClamp={2}>
-          {title}
-        </Text>
-      </Card>
+          <p className="line-clamp-2 p-4 text-sm font-semibold leading-snug">{title}</p>
+        </button>
+      </DialogTrigger>
 
-      <Modal opened={opened} onClose={close} size="xl" centered title={title} radius="lg">
-        <AspectRatio ratio={16 / 9}>
-          {opened && (
+      <DialogContent className="max-w-4xl p-4">
+        <DialogTitle className="mb-3 px-1 text-lg">{title}</DialogTitle>
+        <div className="aspect-video overflow-hidden rounded-2xl bg-ink">
+          {open && (
             <iframe
               src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`}
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
               allowFullScreen
-              style={{ border: 0, borderRadius: 12 }}
+              className="size-full border-0"
             />
           )}
-        </AspectRatio>
-      </Modal>
-    </>
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }

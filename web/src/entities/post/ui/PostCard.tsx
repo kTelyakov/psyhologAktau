@@ -1,51 +1,60 @@
-import { Badge, Card, Group, Stack, Text, Title } from '@mantine/core'
-import { IconCalendar } from '@tabler/icons-react'
+import { CalendarDays } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { formatDate } from '@/shared/lib'
+import { cn, formatDate } from '@/shared/lib'
 import type { PostListItem } from '@/shared/api'
 
-import classes from './PostCard.module.css'
-
-export function PostCard({ post, showCategory = true }: { post: PostListItem; showCategory?: boolean }) {
+export function PostCard({
+  post,
+  showCategory = true,
+  className,
+}: {
+  post: PostListItem
+  showCategory?: boolean
+  className?: string
+}) {
   return (
-    <Card component={Link} href={post.url} className={classes.card} padding={0} shadow="sm">
-      <div className={classes.media}>
+    <Link
+      href={post.url}
+      className={cn(
+        'group relative flex h-full flex-col overflow-hidden rounded-card border border-rule bg-white',
+        'transition-all duration-300 hover:-translate-y-1 hover:border-clay-200 hover:shadow-[0_18px_40px_-12px_rgba(33,29,26,0.18)]',
+        className,
+      )}
+    >
+      <div className="relative aspect-[16/10] overflow-hidden bg-clay-50">
         {post.image ? (
           <Image
             src={`/media/${post.image}`}
             alt={post.title}
             fill
-            sizes="(max-width: 48em) 100vw, (max-width: 64em) 50vw, 380px"
-            className={classes.image}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 380px"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
           />
         ) : (
-          <div className={classes.placeholder} aria-hidden />
+          <div className="size-full bg-gradient-to-br from-clay-100 to-sage-100" />
+        )}
+        {showCategory && post.categoryTitle && (
+          <span className="absolute left-3 top-3 rounded-full bg-white/92 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-clay-600 backdrop-blur-sm">
+            {post.categoryTitle}
+          </span>
         )}
       </div>
 
-      <Stack gap="xs" p="lg" style={{ flex: 1 }}>
-        {showCategory && post.categoryTitle && (
-          <Badge variant="light" color="brand" radius="sm" size="sm">
-            {post.categoryTitle}
-          </Badge>
-        )}
-
-        <Title order={3} fz="lg" lh={1.3} className={classes.title}>
+      <div className="flex flex-1 flex-col gap-2.5 p-6">
+        <h2 className="font-display text-xl leading-snug transition-colors group-hover:text-clay-600">
           {post.title}
-        </Title>
-
-        <Text c="dimmed" fz="sm" lineClamp={3} style={{ flex: 1 }}>
+        </h2>
+        <p className="line-clamp-3 flex-1 text-[15px] leading-relaxed text-ink-soft">
           {post.excerpt}
-        </Text>
-
-        <Group gap={6} mt="xs" c="dimmed" fz="xs">
-          <IconCalendar size={14} stroke={1.6} />
+        </p>
+        <div className="mt-2 flex items-center gap-1.5 text-[13px] text-ink-soft">
+          <CalendarDays className="size-3.5" />
           <span>{formatDate(post.publishedAt)}</span>
-          {post.author && <span>· {post.author}</span>}
-        </Group>
-      </Stack>
-    </Card>
+          {post.author && <span className="truncate">· {post.author}</span>}
+        </div>
+      </div>
+    </Link>
   )
 }

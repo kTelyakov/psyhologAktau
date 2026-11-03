@@ -1,9 +1,0 @@
-.item {
-  background: #fff;
-  border: 1px solid var(--mantine-color-gray-2);
-  transition: border-color 160ms ease, box-shadow 160ms ease;
-}
-.item[data-active] {
-  border-color: var(--mantine-color-brand-4);
-  box-shadow: var(--mantine-shadow-md);
-}

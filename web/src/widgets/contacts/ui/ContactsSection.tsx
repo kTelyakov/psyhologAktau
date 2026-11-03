@@ -1,62 +1,70 @@
-import { Anchor, Box, Card, Container, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-import { IconBuildingStore, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react'
+import { Building2, Mail, MapPin, Phone } from 'lucide-react'
 import Image from 'next/image'
 
 import { LeadForm } from '@/features/lead-form'
 import { SITE } from '@/shared/config'
-
-import classes from './ContactsSection.module.css'
+import { Rise, BorderBeam } from '@/shared/ui'
 
 export function ContactsSection() {
   const items = [
-    { Icon: IconMapPin, label: 'Адрес', value: SITE.address },
-    { Icon: IconPhone, label: 'Телефон', value: SITE.phone, href: SITE.phoneHref },
-    { Icon: IconMail, label: 'E-mail', value: SITE.email, href: `mailto:${SITE.email}` },
-    { Icon: IconBuildingStore, label: 'Реквизиты', value: SITE.entity },
+    { Icon: MapPin, label: 'Адрес', value: SITE.address },
+    { Icon: Phone, label: 'Телефон', value: SITE.phone, href: SITE.phoneHref },
+    { Icon: Mail, label: 'E-mail', value: SITE.email, href: `mailto:${SITE.email}` },
+    { Icon: Building2, label: 'Реквизиты', value: SITE.entity },
   ]
 
   return (
-    <Container size="lg" py={72} id="contacts">
-      <Stack gap={8} align="center" mb={48}>
-        <Text tt="uppercase" fz="sm" fw={600} c="brand.6" lts="0.08em">Контакты</Text>
-        <Title order={2} ta="center">Приходите или напишите</Title>
-      </Stack>
+    <section id="contacts" className="mx-auto max-w-6xl px-5 py-20">
+      <Rise>
+        <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
+          Контакты
+        </p>
+        <h2 className="mt-3 text-center font-display text-[clamp(1.8rem,3.5vw,2.7rem)] tracking-tight">
+          Приходите или напишите
+        </h2>
+      </Rise>
 
-      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-        <Stack gap="lg">
-          <Stack gap="md">
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <Rise>
+          <ul className="space-y-5">
             {items.map(({ Icon, label, value, href }) => (
-              <Group key={label} gap="md" wrap="nowrap" align="flex-start">
-                <div className={classes.iconBox}>
-                  <Icon size={20} stroke={1.6} />
-                </div>
+              <li key={label} className="flex gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-clay-50 text-clay-600">
+                  <Icon className="size-5" strokeWidth={1.7} />
+                </span>
                 <div>
-                  <Text fz="xs" c="dimmed" tt="uppercase" fw={600} lts="0.04em">{label}</Text>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">{label}</p>
                   {href ? (
-                    <Anchor href={href} fw={500} c="brand.7">{value}</Anchor>
+                    <a href={href} className="font-semibold text-clay-600 hover:underline">{value}</a>
                   ) : (
-                    <Text c="gray.8" lh={1.5}>{value}</Text>
+                    <p className="leading-relaxed">{value}</p>
                   )}
                 </div>
-              </Group>
+              </li>
             ))}
-          </Stack>
+          </ul>
 
-          <a href="https://2gis.kz/aktau" target="_blank" rel="noopener noreferrer" className={classes.map}>
-            <Image src="/map.png" alt="Карта: как нас найти" width={700} height={420}
-                   className={classes.mapImg} />
+          <a
+            href="https://2gis.kz/aktau"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-7 block overflow-hidden rounded-card border border-rule transition-shadow hover:shadow-lg"
+          >
+            <Image src="/map.png" alt="Карта: как нас найти" width={700} height={420} className="h-auto w-full" />
           </a>
-        </Stack>
+        </Rise>
 
-        <Card padding="xl" shadow="md" bg="white">
-          <Title order={3} fz="h3" mb={6}>Бесплатная консультация</Title>
-          <Text c="dimmed" fz="sm" mb="lg">
-            Оставьте контакты — свяжемся в ближайшее время. Всё, что вы расскажете,
-            остаётся между вами и психологом.
-          </Text>
-          <LeadForm />
-        </Card>
-      </SimpleGrid>
-    </Container>
+        <Rise delay={0.12}>
+          <div className="relative overflow-hidden rounded-card border border-rule bg-white p-7 shadow-sm">
+            <BorderBeam duration={10} size={110} />
+            <h3 className="font-display text-2xl">Бесплатная консультация</h3>
+            <p className="mb-6 mt-2 text-[15px] leading-relaxed text-ink-soft">
+              Оставьте контакты — свяжемся в ближайшее время и подберём удобное время встречи.
+            </p>
+            <LeadForm />
+          </div>
+        </Rise>
+      </div>
+    </section>
   )
 }

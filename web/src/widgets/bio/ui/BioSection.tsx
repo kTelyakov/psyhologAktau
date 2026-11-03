@@ -1,99 +1,100 @@
-import { Badge, Box, Container, Group, Paper, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-import { IconAward, IconUsers } from '@tabler/icons-react'
+import { Award, Users } from 'lucide-react'
 import Image from 'next/image'
 
 import { LeadFormModal } from '@/features/lead-form'
 import { SITE } from '@/shared/config'
-
-import classes from './BioSection.module.css'
+import { Rise, Marquee, NumberTicker } from '@/shared/ui'
 
 const DIPLOMAS = [
   'dip1.jpeg', 'dip2.png', 'dip3.png', 'dip4.png', 'dip5.png', 'dip6.png',
   'dip7.jpeg', 'dip8.jpeg', 'dip9.jpeg', 'dip10.jpeg', 'dip11.jpeg', 'dip12.jpeg',
 ]
 
-const STATS = [
-  { value: '20+', label: 'лет практики', Icon: IconAward },
-  { value: '10 000+', label: 'человек получили помощь', Icon: IconUsers },
-]
-
 export function BioSection() {
   return (
-    <Box className={classes.wrapper} id="about">
-      <Container size="lg" py={72}>
-        <SimpleGrid cols={{ base: 1, md: 2 }} spacing={48} style={{ alignItems: 'center' }}>
-          <div className={classes.photoWrap}>
-            <Image
-              src="/psyholog.png"
-              alt={SITE.psychologist}
-              width={460}
-              height={560}
-              className={classes.photo}
-            />
-          </div>
+    <section id="about" className="border-y border-rule bg-white py-20">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="grid items-center gap-12 md:grid-cols-2">
+          <Rise>
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-sage-300/50 to-clay-100">
+              <Image
+                src="/psyholog.png"
+                alt={SITE.psychologist}
+                width={520}
+                height={620}
+                className="h-auto w-full object-contain"
+              />
+            </div>
+          </Rise>
 
-          <Stack gap="lg">
-            <Badge variant="light" color="brand" size="lg" radius="sm" w="fit-content">
+          <Rise delay={0.12}>
+            <p className="text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
               О специалисте
-            </Badge>
-
-            <Title order={2}>{SITE.psychologist}</Title>
-            <Text fz="lg" c="brand.7" fw={500} mt={-8}>
+            </p>
+            <h2 className="mt-3 font-display text-[clamp(1.8rem,3.5vw,2.7rem)] tracking-tight">
+              {SITE.psychologist}
+            </h2>
+            <p className="mt-2 text-lg font-medium text-clay-600">
               Практический психолог, основатель центра «Ару-Ана»
-            </Text>
+            </p>
 
-            <Text c="gray.7" lh={1.7}>
-              Более двадцати лет работаю с людьми, которые оказались в тупике:
-              распадается семья, не слышно ребёнка, накрывает тревога, уходит смысл.
-              В работе опираюсь на уважение к человеку и его праву на ошибку —
-              без диагнозов, обвинений и готовых рецептов.
-            </Text>
+            <div className="mt-6 space-y-4 leading-relaxed text-ink-soft">
+              <p>
+                Более двадцати лет работаю с людьми, которые оказались в тупике:
+                распадается семья, не слышно ребёнка, накрывает тревога, уходит смысл.
+                В работе опираюсь на уважение к человеку и его праву на ошибку —
+                без диагнозов, обвинений и готовых рецептов.
+              </p>
+              <p>
+                Веду приём в Актау и онлайн, провожу корпоративные тренинги,
+                выступаю на телевидении и пишу статьи для тех, кто пока не готов
+                прийти на консультацию.
+              </p>
+            </div>
 
-            <Text c="gray.7" lh={1.7}>
-              Веду приём в Актау и онлайн, провожу корпоративные тренинги,
-              выступаю на телевидении и пишу статьи для тех, кто пока не готов
-              прийти на консультацию.
-            </Text>
-
-            <SimpleGrid cols={2} spacing="md" mt="xs">
-              {STATS.map(({ value, label, Icon }) => (
-                <Paper key={label} p="md" withBorder bg="white">
-                  <Group gap="sm" wrap="nowrap">
-                    <Icon size={28} stroke={1.5} className={classes.statIcon} />
-                    <div>
-                      <Text fw={700} fz="xl" lh={1.1}>{value}</Text>
-                      <Text fz="xs" c="dimmed" lh={1.3}>{label}</Text>
-                    </div>
-                  </Group>
-                </Paper>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {[
+                { Icon: Award, value: 20, suffix: '+', label: 'лет практики' },
+                { Icon: Users, value: 10000, suffix: '+', label: 'человек получили помощь' },
+              ].map(({ Icon, value, suffix, label }) => (
+                <div key={label} className="flex items-center gap-3 rounded-2xl border border-rule bg-paper px-4 py-4">
+                  <Icon className="size-7 shrink-0 text-clay-500" strokeWidth={1.6} />
+                  <div>
+                    <p className="font-display text-2xl leading-none">
+                      <NumberTicker value={value} />{suffix}
+                    </p>
+                    <p className="mt-1 text-xs text-ink-soft">{label}</p>
+                  </div>
+                </div>
               ))}
-            </SimpleGrid>
+            </div>
 
-            <LeadFormModal label="Записаться на приём" size="md" w="fit-content" />
-          </Stack>
-        </SimpleGrid>
+            <LeadFormModal label="Записаться на приём" size="lg" className="mt-7" />
+          </Rise>
+        </div>
 
-        <Stack gap="md" mt={64}>
-          <Title order={3} ta="center" fz="h3">Образование и квалификация</Title>
-          <Text c="dimmed" ta="center" fz="sm" mb="sm">
-            {DIPLOMAS.length} документа о профессиональной подготовке
-          </Text>
-          <div className={classes.diplomas}>
-            {DIPLOMAS.map((d) => (
-              <a
-                key={d}
-                href={`/diploms/${d}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.diploma}
-              >
-                <Image src={`/diploms/${d}`} alt="Диплом" width={200} height={140}
-                       className={classes.diplomaImg} />
-              </a>
-            ))}
+        <Rise delay={0.1}>
+          <div className="mt-20">
+            <h3 className="text-center font-display text-2xl">Образование и квалификация</h3>
+            <p className="mt-2 text-center text-sm text-ink-soft">
+              {DIPLOMAS.length} документов о профессиональной подготовке
+            </p>
+            <Marquee pauseOnHover className="mt-8 [--duration:50s] [--gap:1rem]">
+              {DIPLOMAS.map((d) => (
+                <a
+                  key={d}
+                  href={`/diploms/${d}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative h-36 w-52 shrink-0 overflow-hidden rounded-xl border border-rule bg-paper transition-transform duration-300 hover:scale-[1.04]"
+                >
+                  <Image src={`/diploms/${d}`} alt="Диплом" fill sizes="208px" className="object-cover" />
+                </a>
+              ))}
+            </Marquee>
           </div>
-        </Stack>
-      </Container>
-    </Box>
+        </Rise>
+      </div>
+    </section>
   )
 }

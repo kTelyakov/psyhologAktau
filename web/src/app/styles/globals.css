@@ -1,22 +1,275 @@
-:root {
-  --page-max: 1180px;
-  --surface: #f7f8fc;
+@import 'tailwindcss';
+
+@theme {
+  /* Тёплая база вместо холодного серого */
+  --color-paper: #faf7f2;
+  --color-paper-2: #f4efe7;
+  --color-ink: #211d1a;
+  --color-ink-soft: #6b6159;
+  --color-rule: #e7ded2;
+
+  /* Акценты */
+  --color-clay-50: #fbf2ee;
+  --color-clay-100: #f5e0d6;
+  --color-clay-200: #ecc3b0;
+  --color-clay-300: #de9d80;
+  --color-clay-400: #d0805e;
+  --color-clay-500: #c2704f;
+  --color-clay-600: #a85c3e;
+  --color-clay-700: #8a4a31;
+  --color-clay-800: #6d3b28;
+  --color-clay-900: #58311f;
+
+  --color-sage-100: #e4eae2;
+  --color-sage-300: #aebfa9;
+  --color-sage-500: #7d8f7a;
+  --color-sage-700: #5b6a59;
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+
+  /* Анимации Magic UI */
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration, 40s) linear infinite;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  --animate-border-beam: border-beam calc(var(--duration) * 1s) infinite linear;
+  --animate-shiny-text: shiny-text 8s infinite;
+  --animate-gradient: gradient 8s linear infinite;
+  --animate-accordion-down: accordion-down 0.28s ease-out;
+  --animate-accordion-up: accordion-up 0.28s ease-out;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--gap))); }
+}
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+@keyframes spin-around {
+  0%   { transform: translateZ(0) rotate(0); }
+  15%, 35% { transform: translateZ(0) rotate(90deg); }
+  65%, 85% { transform: translateZ(0) rotate(270deg); }
+  100% { transform: translateZ(0) rotate(360deg); }
+}
+@keyframes border-beam {
+  to { offset-distance: 100%; }
+}
+@keyframes shiny-text {
+  0%, 90%, 100% { background-position: calc(-100% - var(--shiny-width)) 0; }
+  30%, 60%      { background-position: calc(100% + var(--shiny-width)) 0; }
+}
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+@keyframes gradient {
+  to { background-position: var(--bg-size, 300%) 0; }
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--surface);
+  background: var(--color-paper);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Контент статей приехал из WordPress — приводим к единому виду */
-.article-body :is(p, ul, ol, blockquote) { margin-block: 0.9em; }
-.article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; }
-.article-body hr {
-  margin-block: 1.6em;
-  border: none;
-  border-top: 1px solid var(--mantine-color-gray-3);
+::selection { background: var(--color-clay-200); }
+
+/* ======== Типографика статей ========
+   Контент приехал из WordPress — приводим к читаемому виду */
+.article-body {
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--color-ink);
 }
-.article-body a { color: var(--mantine-color-brand-7); }
+
+.article-body > p { margin-block: 1.15em; }
+
+/* Первый абзац — лид: крупнее и чуть светлее */
+.article-body > p:first-child {
+  font-size: 1.22rem;
+  line-height: 1.65;
+  color: var(--color-ink-soft);
+  font-weight: 500;
+}
+
+/* Буквица */
+.article-body > p:first-child::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 3.4em;
+  line-height: 0.82;
+  margin: 0.06em 0.11em 0 0;
+  color: var(--color-clay-500);
+}
+
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+  font-family: var(--font-display);
+  line-height: 1.3;
+  margin-block: 1.9em 0.6em;
+  letter-spacing: -0.01em;
+}
+.article-body h2 { font-size: 1.65rem; }
+.article-body h3 { font-size: 1.35rem; }
+.article-body h4 { font-size: 1.15rem; }
+
+.article-body strong { font-weight: 700; color: var(--color-ink); }
+.article-body em { font-style: italic; }
+
+/* Списки с фирменными маркерами */
+.article-body ul,
+.article-body ol {
+  margin-block: 1.4em;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75em;
+}
+
+.article-body ul > li {
+  position: relative;
+  padding-left: 2rem;
+}
+.article-body ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.35rem;
+  top: 0.62em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-clay-400);
+  box-shadow: 0 0 0 4px var(--color-clay-100);
+}
+
+.article-body ol { counter-reset: item; }
+.article-body ol > li {
+  position: relative;
+  padding-left: 2.6rem;
+  counter-increment: item;
+}
+.article-body ol > li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-clay-50);
+  border: 1px solid var(--color-clay-200);
+  color: var(--color-clay-700);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.article-body li > ul,
+.article-body li > ol { margin-block: 0.6em; }
+
+/* Цитаты-врезки */
+.article-body blockquote {
+  margin-block: 1.8em;
+  padding: 1.4rem 1.6rem;
+  border-left: 3px solid var(--color-clay-400);
+  border-radius: 0 1rem 1rem 0;
+  background: var(--color-clay-50);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+.article-body blockquote p { margin: 0; }
+.article-body blockquote p + p { margin-top: 0.7em; }
+
+.article-body a {
+  color: var(--color-clay-600);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.article-body a:hover { color: var(--color-clay-700); }
+
+.article-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block: 1.8em;
+  border-radius: 1rem;
+}
+
+.article-body hr {
+  margin-block: 2.4em;
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-rule) 20%, var(--color-rule) 80%, transparent);
+  position: relative;
+}
+
+.article-body table {
+  width: 100%;
+  margin-block: 1.6em;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.article-body th,
+.article-body td {
+  padding: 0.7em 0.9em;
+  border: 1px solid var(--color-rule);
+  text-align: left;
+}
+.article-body th { background: var(--color-paper-2); font-weight: 600; }
+
+/* Уважаем системную настройку «меньше движения» */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-blur-fade] {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* Появление первого экрана — чистый CSS, без ожидания гидратации.
+   Элемент виден сразу: анимируется только смещение, LCP не блокируется. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.anim-rise {
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* h1 и лид не анимируем вовсе — это LCP-кандидаты */
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise { animation: none; }
+}
+
+/* Длинные списки карточек: браузер пропускает отрисовку того,
+   что за экраном. Для блога из 58 статей это снимает секунды Render Delay. */
+.cv-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+}

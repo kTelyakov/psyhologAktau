@@ -1,37 +1,44 @@
-import { Button, Container, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-import { IconArrowRight } from '@tabler/icons-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 import { PostCard, listPosts } from '@/entities/post'
 import { postsPlural } from '@/shared/lib'
+import { Rise, Button } from '@/shared/ui'
 
 export async function LatestPosts() {
   const { items, total } = await listPosts({ limit: 3 })
   if (items.length === 0) return null
 
   return (
-    <Container size="lg" py={72}>
-      <Stack gap={8} align="center" mb={48}>
-        <Text tt="uppercase" fz="sm" fw={600} c="brand.6" lts="0.08em">Блог</Text>
-        <Title order={2} ta="center">Статьи психолога</Title>
-        <Text c="dimmed" ta="center" maw={620}>
+    <section className="mx-auto max-w-6xl px-5 py-20">
+      <Rise>
+        <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
+          Блог
+        </p>
+        <h2 className="mt-3 text-center font-display text-[clamp(1.8rem,3.5vw,2.7rem)] tracking-tight">
+          Статьи психолога
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-center leading-relaxed text-ink-soft">
           {total} {postsPlural(total)} о семье, страхах, воспитании детей и отношениях —
           написаны практикующими психологами центра.
-        </Text>
-      </Stack>
+        </p>
+      </Rise>
 
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
-        {items.map((p) => (
-          <PostCard key={p.url} post={p} />
+      <div className="mt-12 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+        {items.map((p, i) => (
+          <Rise key={p.url} delay={0.08 * i}>
+            <PostCard post={p} />
+          </Rise>
         ))}
-      </SimpleGrid>
+      </div>
 
-      <Group justify="center" mt="xl">
-        <Button component={Link} href="/blog/" variant="light" size="md"
-                rightSection={<IconArrowRight size={18} />}>
-          Все статьи
+      <div className="mt-10 flex justify-center">
+        <Button asChild variant="outline" size="lg">
+          <Link href="/blog/">
+            Все статьи <ArrowRight className="size-4" />
+          </Link>
         </Button>
-      </Group>
-    </Container>
+      </div>
+    </section>
   )
 }

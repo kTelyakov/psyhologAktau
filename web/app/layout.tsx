@@ -1,14 +1,18 @@
-import '@mantine/core/styles.css'
 import '@/app/styles/globals.css'
 
-import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core'
 import type { Metadata, Viewport } from 'next'
-import { Manrope } from 'next/font/google'
+import { Lora, Manrope } from 'next/font/google'
 
-import { Providers } from '@/app/providers'
 import { SITE } from '@/shared/config'
 import { SiteFooter } from '@/widgets/footer'
 import { SiteHeader } from '@/widgets/header'
+
+const display = Lora({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-display',
+})
 
 const sans = Manrope({
   subsets: ['latin', 'cyrillic'],
@@ -30,16 +34,12 @@ export const metadata: Metadata = {
     'психолог Актау', 'психолог в Актау', 'семейный психолог Актау',
     'детский психолог Актау', 'консультация психолога', 'Ару-Ана',
   ],
-  openGraph: {
-    type: 'website',
-    locale: 'ru_KZ',
-    siteName: SITE.center,
-  },
+  openGraph: { type: 'website', locale: 'ru_KZ', siteName: SITE.center },
   robots: { index: true, follow: true },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#4251ca',
+  themeColor: '#c2704f',
   width: 'device-width',
   initialScale: 1,
 }
@@ -67,20 +67,14 @@ const JSON_LD = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" {...mantineHtmlProps} className={sans.variable}>
+    <html lang="ru" className={`${display.variable} ${sans.variable}`}>
       <head>
-        <ColorSchemeScript defaultColorScheme="light" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       </head>
-      <body>
-        <Providers>
-          <SiteHeader />
-          <main>{children}</main>
-          <SiteFooter />
-        </Providers>
+      <body className="font-sans antialiased">
+        <SiteHeader />
+        <main>{children}</main>
+        <SiteFooter />
       </body>
     </html>
   )

@@ -1,79 +1,67 @@
-import { Card, Container, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-import {
-  IconHeartHandshake, IconMoodKid, IconSchool, IconUser, IconUsersGroup, IconVideo,
-} from '@tabler/icons-react'
+import { ArrowUpRight, Baby, GraduationCap, HeartHandshake, User, Users, Video } from 'lucide-react'
 import Link from 'next/link'
 
-import classes from './ServicesSection.module.css'
+import { Rise, BorderBeam } from '@/shared/ui'
+import { cn } from '@/shared/lib'
 
 const SERVICES = [
   {
     href: '/individualnye-konsultacii/',
     title: 'Индивидуальные консультации',
-    description: 'Личный запрос: тревога, самооценка, отношения, поиск опоры',
-    Icon: IconUser,
+    description: 'Тревога, самооценка, выгорание, отношения, поиск опоры в себе',
+    Icon: User,
+    featured: true,
   },
-  {
-    href: '/semeynye-konsultacii/',
-    title: 'Семейные консультации',
-    description: 'Для пар, которые хотят понять друг друга и сохранить отношения',
-    Icon: IconHeartHandshake,
-  },
-  {
-    href: '/skype-konsultacii/',
-    title: 'Консультации онлайн',
-    description: 'Из любого города — по видеосвязи, с тем же результатом',
-    Icon: IconVideo,
-  },
-  {
-    href: '/treningi/',
-    title: 'Корпоративные тренинги',
-    description: 'Для юридических лиц: климат в коллективе, выгорание, конфликты',
-    Icon: IconUsersGroup,
-  },
-  {
-    href: '/detskiy-psiholog/',
-    title: 'Детский психолог',
-    description: 'Для детей до 7 лет: адаптация, страхи, поведение',
-    Icon: IconMoodKid,
-  },
-  {
-    href: '/trudnye-podrostki/',
-    title: 'Подростковый психолог',
-    description: 'Работа с трудными подростками и их родителями',
-    Icon: IconSchool,
-  },
+  { href: '/semeynye-konsultacii/', title: 'Семейные консультации', description: 'Для пар, которые хотят понять друг друга', Icon: HeartHandshake },
+  { href: '/skype-konsultacii/', title: 'Консультации онлайн', description: 'Из любого города — по видеосвязи', Icon: Video },
+  { href: '/detskiy-psiholog/', title: 'Детский психолог', description: 'Адаптация, страхи, поведение — для детей до 7 лет', Icon: Baby },
+  { href: '/trudnye-podrostki/', title: 'Подростковый психолог', description: 'Работа с трудными подростками и их родителями', Icon: GraduationCap },
+  { href: '/treningi/', title: 'Корпоративные тренинги', description: 'Выгорание, конфликты, климат в коллективе', Icon: Users },
 ]
 
 export function ServicesSection() {
   return (
-    <Container size="lg" py={72} id="services">
-      <Stack gap={8} align="center" mb={48}>
-        <Text tt="uppercase" fz="sm" fw={600} c="brand.6" lts="0.08em">
+    <section id="services" className="mx-auto max-w-6xl px-5 py-20">
+      <Rise>
+        <p className="text-center text-[13px] font-bold uppercase tracking-[0.18em] text-sage-700">
           Чем могу помочь
-        </Text>
-        <Title order={2} ta="center">Направления работы</Title>
-        <Text c="dimmed" ta="center" maw={620}>
-          Первая консультация — бесплатная. На ней вместе определим,
-          что происходит и какой формат работы подойдёт именно вам.
-        </Text>
-      </Stack>
+        </p>
+        <h2 className="mt-3 text-center font-display text-[clamp(1.8rem,3.5vw,2.7rem)] tracking-tight">
+          Направления работы
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-center leading-relaxed text-ink-soft">
+          Первая консультация бесплатная. На ней вместе определим, что происходит
+          и какой формат работы подойдёт именно вам.
+        </p>
+      </Rise>
 
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
-        {SERVICES.map(({ href, title, description, Icon }) => (
-          <Card key={href} component={Link} href={href} className={classes.card} padding="xl" shadow="sm">
-            <div className={classes.iconBox}>
-              <Icon size={26} stroke={1.5} />
-            </div>
-            <Title order={3} fz="lg" mt="md" mb={6} className={classes.title}>
-              {title}
-            </Title>
-            <Text c="dimmed" fz="sm" lh={1.55}>
-              {description}
-            </Text>
-          </Card>
+      <div className="mt-12 grid gap-4 md:auto-rows-fr md:grid-cols-3">
+        {SERVICES.map(({ href, title, description, Icon, featured }, i) => (
+          <Rise key={href} delay={0.06 * i} className={cn(featured && 'md:col-span-2 md:row-span-2')}>
+            <Link
+              href={href}
+              className={cn(
+                'group relative flex h-full flex-col overflow-hidden rounded-card border border-rule bg-white p-7',
+                'transition-all duration-300 hover:-translate-y-1 hover:border-clay-200 hover:shadow-[0_18px_40px_-14px_rgba(33,29,26,0.18)]',
+                featured && 'bg-gradient-to-br from-white to-clay-50',
+              )}
+            >
+              {featured && <BorderBeam duration={9} size={90} />}
+              <span className="grid size-13 place-items-center rounded-2xl bg-clay-50 text-clay-600 transition-colors duration-300 group-hover:bg-clay-500 group-hover:text-white">
+                <Icon className="size-6" strokeWidth={1.6} />
+              </span>
+              <h3 className={cn('mt-5 font-display leading-snug', featured ? 'text-2xl' : 'text-xl')}>
+                {title}
+              </h3>
+              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">{description}</p>
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-clay-600">
+                Подробнее
+                <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
+            </Link>
+          </Rise>
         ))}
-      </SimpleGrid>
-    </Container>
+      </div>
+    </section>
   )
 }

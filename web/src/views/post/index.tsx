@@ -1,8 +1,4 @@
-import {
-  Anchor, Badge, Box, Container, Divider, Group, SimpleGrid, Stack, Text, Title,
-  TypographyStylesProvider,
-} from '@mantine/core'
-import { IconCalendar, IconUser } from '@tabler/icons-react'
+import { CalendarDays, ChevronRight, User } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,9 +8,8 @@ import { PostCard, getPost, getPostRefs, listPosts } from '@/entities/post'
 import { ApiError } from '@/shared/api'
 import { SITE } from '@/shared/config'
 import { formatDate, isoDate } from '@/shared/lib'
+import { Rise } from '@/shared/ui'
 import { CtaBanner } from '@/widgets/cta'
-
-import classes from './PostView.module.css'
 
 interface Params {
   params: Promise<{ category: string; slug: string }>
@@ -80,68 +75,81 @@ export default async function PostView({ params }: Params) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <Container size={760} pt={40} pb={24}>
-        <Stack gap="md">
-          <Group gap={8} fz="sm" c="dimmed">
-            <Anchor component={Link} href="/blog/" c="brand.6">Статьи</Anchor>
-            <span>/</span>
-            <Anchor component={Link} href={`/blog/${post.category}/`} c="brand.6">
-              {post.categoryTitle}
-            </Anchor>
-          </Group>
+      <article>
+        <header className="mx-auto max-w-3xl px-5 pb-8 pt-12">
+          <Rise>
+            <nav className="flex items-center gap-1.5 text-sm text-ink-soft">
+              <Link href="/blog/" className="hover:text-clay-600">Статьи</Link>
+              <ChevronRight className="size-3.5" />
+              <Link href={`/blog/${post.category}/`} className="hover:text-clay-600">
+                {post.categoryTitle}
+              </Link>
+            </nav>
 
-          <Title order={1} fz="clamp(1.7rem, 3.4vw, 2.5rem)" lh={1.2}>
-            {post.title}
-          </Title>
+            <h1 className="mt-5 font-display text-[clamp(1.9rem,4vw,3rem)] leading-[1.18] tracking-tight">
+              {post.title}
+            </h1>
 
-          <Group gap="lg" c="dimmed" fz="sm">
-            {post.author && (
-              <Group gap={6}><IconUser size={15} stroke={1.6} />{post.author}</Group>
-            )}
-            <Group gap={6}><IconCalendar size={15} stroke={1.6} />{formatDate(post.publishedAt)}</Group>
-          </Group>
-        </Stack>
-      </Container>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-rule py-4 text-sm text-ink-soft">
+              {post.author && (
+                <span className="flex items-center gap-2">
+                  <User className="size-4" /> {post.author}
+                </span>
+              )}
+              <span className="flex items-center gap-2">
+                <CalendarDays className="size-4" /> {formatDate(post.publishedAt)}
+              </span>
+            </div>
+          </Rise>
+        </header>
 
-      {post.image && (
-        <Container size={960} pb={32}>
-          <Box className={classes.cover}>
-            <Image src={`/media/${post.image}`} alt={post.title} fill priority
-                   sizes="(max-width: 64em) 100vw, 960px" className={classes.coverImg} />
-          </Box>
-        </Container>
-      )}
+        {post.image && (
+          <Rise delay={0.08}>
+            <div className="mx-auto max-w-5xl px-5 pb-10">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-[1.75rem] bg-clay-50 shadow-[0_20px_50px_-20px_rgba(33,29,26,0.3)]">
+                <Image
+                  src={`/media/${post.image}`}
+                  alt={post.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </Rise>
+        )}
 
-      <Container size={760} pb={48}>
-        <TypographyStylesProvider>
+        <div className="mx-auto max-w-3xl px-5 pb-14">
           <div className="article-body" dangerouslySetInnerHTML={{ __html: post.content }} />
-        </TypographyStylesProvider>
 
-        <Divider my={48} />
-
-        <Group gap="sm">
-          <Text fz="sm" c="dimmed">Рубрика:</Text>
-          <Badge component={Link} href={`/blog/${post.category}/`} variant="light"
-                 color="brand" style={{ cursor: 'pointer' }}>
-            {post.categoryTitle}
-          </Badge>
-        </Group>
-      </Container>
+          <div className="mt-12 flex items-center gap-3 border-t border-rule pt-6">
+            <span className="text-sm text-ink-soft">Рубрика:</span>
+            <Link
+              href={`/blog/${post.category}/`}
+              className="rounded-full bg-clay-50 px-4 py-1.5 text-sm font-semibold text-clay-700 transition-colors hover:bg-clay-100"
+            >
+              {post.categoryTitle}
+            </Link>
+          </div>
+        </div>
+      </article>
 
       {others.length > 0 && (
-        <Container size="lg" pb={32}>
-          <Title order={2} fz="h3" mb="lg">Ещё в рубрике «{post.categoryTitle}»</Title>
-          <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
-            {others.map((p) => (
-              <PostCard key={p.url} post={p} showCategory={false} />
+        <section className="mx-auto max-w-6xl px-5 pb-10">
+          <h2 className="mb-6 font-display text-2xl">
+            Ещё в рубрике «{post.categoryTitle}»
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+            {others.map((p, i) => (
+              <Rise key={p.url} delay={0.07 * i}>
+                <PostCard post={p} showCategory={false} />
+              </Rise>
             ))}
-          </SimpleGrid>
-        </Container>
+          </div>
+        </section>
       )}
 
       <CtaBanner
