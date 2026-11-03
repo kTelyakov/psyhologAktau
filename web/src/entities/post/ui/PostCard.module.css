@@ -1,0 +1,45 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--mantine-shadow-lg);
+  border-color: var(--mantine-color-brand-3);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--mantine-color-brand-0);
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--mantine-color-brand-1), var(--mantine-color-brand-3));
+}
+
+.title {
+  transition: color 160ms ease;
+}
+
+.card:hover .title {
+  color: var(--mantine-color-brand-7);
+}

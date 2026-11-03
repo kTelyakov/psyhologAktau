@@ -1,0 +1,26 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--mantine-radius-xl);
+  background: #fff;
+  border: 1px solid var(--mantine-color-gray-3);
+  color: var(--mantine-color-gray-7);
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+.chip:hover { border-color: var(--mantine-color-brand-4); color: var(--mantine-color-brand-7); }
+.chip[data-active] {
+  background: var(--mantine-color-brand-6);
+  border-color: var(--mantine-color-brand-6);
+  color: #fff;
+}
+
+.count {
+  font-size: 11px;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}

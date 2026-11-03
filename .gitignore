@@ -1,7 +1,25 @@
-.DS_Store
-/node_modules/
-/src/node_modules/@sapper/
-yarn-error.log
+# Sapper (удаляется на этапе 9)
 /__sapper__/
-.idea
-.vscode
+/node_modules/
+
+# Next
+/web/node_modules/
+/web/.next/
+/web/out/
+/web/next-env.d.ts
+/web/.env.local
+
+# FastAPI
+/api/.venv/
+/api/__pycache__/
+/api/**/__pycache__/
+/api/*.db
+/api/.env
+
+# прочее
+.DS_Store
+*.log
+
+# IDE
+.idea/
+.vscode/
